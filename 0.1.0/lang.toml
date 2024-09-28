@@ -2,7 +2,6 @@
     default-lang = "zh"
 
 [lang.en]
-    font = "Arial"
     chapter = "Chapter"
     content = "Content"
     definition = "Definition"
@@ -16,7 +15,6 @@
     eq = " Eq."
 
 [lang.zh]
-    font = "Songti SC"
     chapter = "章节"
     content = "主要内容"
     definition = "定义"

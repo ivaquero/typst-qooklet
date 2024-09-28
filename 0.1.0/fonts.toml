@@ -1,0 +1,7 @@
+[en]
+    context = "Helvetica Neue"
+    math = "Times New Roman"
+
+[zh]
+    context = "Songti SC"
+    math = "Kaiti SC"

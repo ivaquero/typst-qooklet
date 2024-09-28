@@ -80,17 +80,9 @@
   set list(indent: list-indent)
   set enum(indent: list-indent)
 
-  let font = {
-    if lang == "en" {
-      "Arial"
-    }
-    if lang == "zh" {
-      "Songti SC"
-    }
-  }
-
+  let fonts = toml("fonts.toml")
   set text(
-    font: font,
+    font: fonts.at(lang).context,
     size: 10.5pt,
     lang: lang,
   )
@@ -115,7 +107,7 @@
   show heading: i-figured.reset-counters.with(level: 2)
   show math.equation: i-figured.show-equation
 
-  set figure.caption(separator: "  ")
+  set figure.caption(separator: " ")
 
   show figure: it => align(
     center,
@@ -152,6 +144,11 @@
   show: fix-indent()
   doc
 }
+
+
+// text
+#let fonts = toml("fonts.toml")
+#let ctext(body) = text(body, font: fonts.at("zh").math)
 
 // tables
 #let frame(stroke) = (
