@@ -1,0 +1,8 @@
+[package]
+    name        = "scibook"
+    version     = "0.1.0"
+    entrypoint  = "scibook.typ"
+    authors     = ["ivaquero"]
+    license     = "MIT"
+    description = "Template for Scientific Books"
+    repository  = ""
