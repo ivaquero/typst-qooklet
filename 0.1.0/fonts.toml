@@ -1,7 +1,9 @@
 [en]
+    title = "Palatino"
     context = "Helvetica Neue"
     math = "Times New Roman"
 
 [zh]
-    context = "Songti SC"
+    title = "STKaiti"
+    context = "STFangsong"
     math = "Kaiti SC"

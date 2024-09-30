@@ -92,7 +92,7 @@
 
   set ref(supplement: it => {
     if it.func() == heading {
-      linguify("chapter")
+      text(linguify("chapter", font: ""))
     } else if it.func() == table {
       it.caption
     } else if it.func() == image {
@@ -100,7 +100,7 @@
     } else if it.func() == figure {
       it.supplement
     } else if it.func() == math.equation {
-      linguify("eq")
+      text(linguify("eq", font: ""))
     } else { }
   })
 
@@ -125,7 +125,7 @@
 
   align(
     center,
-    text(18pt)[
+    text(size: 20pt, font: fonts.at(lang).title)[
       *#title*
     ],
   )
@@ -144,7 +144,6 @@
   show: fix-indent()
   doc
 }
-
 
 // text
 #let fonts = toml("fonts.toml")
@@ -191,7 +190,7 @@
 // theorems
 #let definition = thmbox(
   "definition",
-  linguify("definition"),
+  text(linguify("definition"),font:""),
   base_level: 1,
   separator: [#h(0.5em)],
   padding: (top: 0em, bottom: 0em),
@@ -202,7 +201,7 @@
 
 #let theorem = thmbox(
   "theorem",
-  linguify("theorem"),
+  text(linguify("theorem"),font:""),
   base_level: 1,
   separator: [#h(0.5em)],
   padding: (top: 0em, bottom: 0.2em),
@@ -212,7 +211,7 @@
 
 #let lemma = thmbox(
   "theorem",
-  linguify("lemma"),
+  text(linguify("lemma"), font: ""),
   separator: [#h(0.5em)],
   fill: rgb("#EFE6FF"),
   titlefmt: strong,
@@ -220,7 +219,7 @@
 
 #let corollary = thmbox(
   "corollary",
-  linguify("corollary"),
+  text(linguify("corollary"),font:""),
   // base: "theorem",
   separator: [#h(0.5em)],
   titlefmt: strong
@@ -228,7 +227,7 @@
 
 #let rule = thmbox(
   "",
-  linguify("rule"),
+  text(linguify("rule"), font: ""),
   base_level: 1,
   separator: [#h(0.5em)],
   fill: rgb("#EEFFF1"),
@@ -237,7 +236,7 @@
 
 #let algo = thmbox(
   "",
-  linguify("algorithm"),
+  text(linguify("algorithm"), font: ""),
   base_level: 1,
   separator: [#h(0.5em)],
   padding: (top: 0em, bottom: 0.2em),
@@ -246,14 +245,14 @@
 )
 
 // banners
-#let tip(title: linguify("tip"), icon: emoji.lightbulb, ..args) = clue(
+#let tip(title: text(linguify("tip"), font: ""), icon: emoji.lightbulb, ..args) = clue(
   accent-color: yellow,
   title: title,
   icon: icon,
   ..args,
 )
 
-#let alert(title: linguify("alert"), icon: emoji.excl, ..args) = clue(
+#let alert(title: text(linguify("alert"), font: ""), icon: emoji.excl, ..args) = clue(
   accent-color: red,
   title: title,
   icon: icon,
