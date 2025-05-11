@@ -9,10 +9,8 @@ A quick start template for scientific booklets.
   - link quote to source
 - Figure
   - auto numbering based on chapter
-  - subfigure (using [subpar](https://github.com/tingerrr/subpar))
 - Table
   - read as three-line table (`#ktable()`)
-  - read from .xlsx (using [rexllent](https://github.com/hongjr03/typst-rexllent))
 - Code Block
   - highlighting (using [coldly](https://github.com/Dherse/codly))
   - read code block (`#code(text, lang: "python", breakable: true, width: 100%)`)
@@ -25,7 +23,7 @@ A quick start template for scientific booklets.
 Import `qooklet` from the `@preview` namespace.
 
 ```typst
-#import "@preview/qooklet:0.2.0": *
+#import "@preview/qooklet:0.2.1": *
 #show: qooklet.with(
   title: "Bellman Eqation",
   author: "ivaquero",
@@ -49,13 +47,14 @@ The function `ktable(data, k, stroke: three-line(rgb("000")), inset: 0.3em)` is 
 - `three-line(stroke-color)`: default style, for three-line table
 - `no-left-right(stroke-color)`: for grid without left border and right border
 
-![example](0.1.0/thumbnail.png)
+![example](https://raw.githubusercontent.com/ivaquero/typst-qooklet/refs/heads/main/example.png)
+![example2](https://raw.githubusercontent.com/ivaquero/typst-qooklet/refs/heads/main/example2.png)
 
-For more details, see [examples.typ](0.1.0/examples/example.typ).
+For more details, see [examples.typ](https://github.com/ivaquero/typst-qooklet/blob/main/examples/example.typ).
 
 ## Clone Official Repository
 
-Clone the [qooklet](https://github.com/ivaquero/qooklet) repository to your `@local` workspace:
+Clone the [qooklet](https://github.com/ivaquero/typst-qooklet) repository to your `@local` workspace:
 
 - Linux：
   - `$XDG_DATA_HOME/typst/packages/local`

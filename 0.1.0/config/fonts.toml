@@ -1,9 +1,12 @@
-[en]
+[config]
+    default-lang = "en"
+
+[lang.en]
     title = "Palatino"
     context = "Georgia"
     math = "Times New Roman"
 
-[zh]
+[lang.zh]
     title = "STKaiti"
     context = "Songti SC"
     math = "Kaiti SC"

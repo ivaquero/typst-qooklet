@@ -1,32 +1,8 @@
-// multi-languages
-#import "@preview/linguify:0.4.2": linguify, set-database
-// header-footer
-#import "@preview/hydra:0.6.1": hydra
-// physics
-#import "@preview/physica:0.9.5": *
-// theorems
-#import "@preview/ctheorems:1.1.3": thmbox, thmrules
-// banners
-#import "@preview/gentle-clues:1.2.0": *
-// codes
-#import "@preview/codly:1.3.0": codly-init, codly
-#import "@preview/codly-languages:0.1.8": codly-languages
-// subfigures
-#import "@preview/subpar:0.2.2": grid as sgrid
-// diagram
-#import "@preview/fletcher:0.5.7": diagram, node, edge
-// excel
-#import "@preview/rexllent:0.3.0": xlsx-parser
-// wrap
-#import "@preview/wrap-it:0.1.1": wrap-content
-// annot
-#import "@preview/pinit:0.2.2": pin, pinit-highlight, pinit-place
+#import "deps.typ": *
 
 #let qooklet(
-  title: none,
-  author: (),
-  header-cap: [],
-  footer-cap: [],
+  title: "",
+  info: toml("../config/info.toml").global,
   outline-on: false,
   par-leading: 1em,
   list-indent: 1.2em,
@@ -37,8 +13,13 @@
   lang: "en",
   doc,
 ) = {
-  let lang_data = toml("lang.toml")
-  set-database(lang_data)
+  let sect-names = toml("../config/sections.toml")
+  set-database(sect-names)
+
+  let author = info.author
+  let header-cap = info.header-cap
+  let footer-cap = info.footer-cap
+  let lang = info.lang
 
   set page(
     paper: paper,
@@ -73,19 +54,19 @@
   set par(
     first-line-indent: (
       amount: 2em,
-      all: true,
+      all: if lang == "zh" { true } else { false },
     ),
     justify: true,
     leading: 1em,
     spacing: 1em,
   )
-  set block(above: block-above, below: block-below)
+  set block(above: block-above, below: block-below, radius: 20%)
   set list(indent: list-indent)
   set enum(indent: list-indent)
 
-  let fonts = toml("fonts.toml")
+  let fonts = toml("../config/fonts.toml")
   set text(
-    font: fonts.at(lang).context,
+    font: fonts.lang.at(lang).context,
     size: 10.5pt,
     lang: lang,
   )
@@ -161,7 +142,7 @@
 
   align(
     center,
-    text(size: 20pt, font: fonts.at(lang).title)[
+    text(size: 20pt, font: fonts.lang.at(lang).title)[
       *#title*
     ],
   )
@@ -173,7 +154,7 @@
 
   if outline-on == true {
     outline(
-      title: lang_data.lang.at(lang).content,
+      title: sect-names.lang.at(lang).content,
       indent: auto,
       depth: 2,
     )
@@ -186,8 +167,8 @@
 }
 
 // text
-#let fonts = toml("fonts.toml")
-#let ctext(body) = text(body, font: fonts.at("zh").math)
+#let fonts = toml("../config/fonts.toml")
+#let ctext(body) = text(body, font: fonts.lang.at("zh").math)
 
 // table: three-line
 #let three-line(stroke-color) = (
@@ -263,6 +244,16 @@
   // stroke: rgb("#000000")
 )
 
+#let law = thmbox(
+  "law",
+  text(linguify("law")),
+  base_level: 1,
+  separator: [#h(0.5em)],
+  padding: (top: 0em, bottom: 0.2em),
+  fill: rgb("#ddf3f4"),
+  // stroke: rgb("#000000")
+)
+
 #let lemma = thmbox(
   "theorem",
   text(linguify("lemma")),
@@ -284,7 +275,7 @@
   text(linguify("rule")),
   base_level: 1,
   separator: [#h(0.5em)],
-  fill: rgb("#EEFFF1"),
+  fill: rgb("#f8eed3"),
   titlefmt: strong,
 )
 

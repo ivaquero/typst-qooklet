@@ -2,10 +2,12 @@
     default-lang = "en"
 
 [lang.en]
+    preface = "Preface"
     chapter = "Chapter"
     content = "Content"
     definition = "Definition"
     theorem = "Theorem"
+    law = "Law"
     lemma = "Lemma"
     corollary = "Corollary"
     rule = "Rule"
@@ -14,10 +16,12 @@
     tip = "Tip"
 
 [lang.zh]
+    preface = "前言"
     chapter = "章节"
     content = "主要内容"
     definition = "定义"
     theorem = "定理"
+    law = "定律"
     lemma = "引理"
     corollary = "推论"
     rule = "法则"
