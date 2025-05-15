@@ -1,0 +1,19 @@
+[paper.en]
+    size = "iso-b5"
+
+[fonts.en]
+    title = "Palatino"
+    author = "Times New Roman"
+    preface = "Georgia"
+    context = "Georgia"
+    math = "Times New Roman"
+
+[paper.zh]
+    size = "iso-b5"
+
+[fonts.zh]
+    title = "STKaiti"
+    author = "Kaiti SC"
+    preface = "Songti SC"
+    context = "Songti SC"
+    math = "Kaiti SC"

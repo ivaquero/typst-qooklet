@@ -1,15 +1,13 @@
 #import "@local/qooklet:0.1.0": *
-#show: qooklet.with(
-  title: "Bellman Eqation",
-  author: "ivaquero",
-  header-cap: "Reinforcement Learning",
-  footer-cap: "ivaquero",
-  outline-on: false,
+
+#show: body-style.with(
+  title: "Bellman Equation",
+  info: default-info,
 )
 
-= Bellman Eqation
+= Bellman Equation
 
-#definition("Bellman Eqation")[
+#definition(title: "Bellman Eqation")[
 
   ...
 
@@ -22,10 +20,6 @@
       γ ∑_(s^′ ∈ 𝒮) p(s^′|s,a) text(v_π (s^′), fill: #rgb("#ff0000"))], ∀s ∈ 𝒮
   $ <bellman>
 ]
-
-```typst
-
-```
 
 = Bellman Optimal Eqation
 
@@ -41,7 +35,7 @@ $ <boe>
 ```typst
 #let csv1 = csv("islands.csv")
 #figure(
-  ktable(csv1, 9, inset: 0.31em),
+  tableq(csv1, 9, inset: 0.31em),
   caption: "Geographic Info of Islands",
   supplement: "Table",
   kind: table,
@@ -50,7 +44,7 @@ $ <boe>
 
 #let csv1 = csv("islands.csv")
 #figure(
-  ktable(csv1, 9, inset: 0.31em),
+  tableq(csv1, 9, inset: 0.31em),
   caption: "Geographic Info of Islands",
   supplement: "Table",
   kind: table,

@@ -1,5 +1,13 @@
 [global]
-    author = ""
+    book = ""
+    author = "ivaquero"
+    footer-cap = ""
+    header-cap = ""
+    lang = "en"
+
+[book]
+    book = "Book Mode"
+    author = "ivaquero"
     footer-cap = ""
     header-cap = ""
     lang = "en"
