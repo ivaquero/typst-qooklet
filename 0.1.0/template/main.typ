@@ -1,7 +1,9 @@
 #import "@local/qooklet:0.1.0": *
 
-#show: body-style.with(
+#show: chapter-style.with(
   title: "",
-  info: info-default,
+  info: default-info,
+  styles: default-styles,
+  names: default-names,
   outline-on: false,
 )

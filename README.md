@@ -8,10 +8,10 @@ A quick start template for scientific booklets.
 
 - Mode Switch
   - the default mode is note mode
-  - when `cover()` is called the book mode will be activated
+  - when `cover()` is called the booklet mode will be activated
 - Styles
-  - call `cover()`, `epigraph()`, `preface()`, `contents()`(still very buggy, don't use until next version) and `part-page()` to generate corresponding page
-  - call `body-style()` and `appendix-style()` to change to customized layout
+  - call `cover()`, `epigraph()`, `preface()`, `contents()` and `part-page()` to generate corresponding page
+  - call `chapter-style()` and `appendix-style()` to change to customized layout
 
 ### Automation
 
@@ -21,15 +21,43 @@ A quick start template for scientific booklets.
 - Figure
   - auto numbering based on chapter
 - Table
-  - read as three-line table (`tableq()`)
+  - read as three-line table
 - Code Block
-  - stylized by (using [coldly](https://github.com/Dherse/codly))
-  - read code block (`#code(text, lang: "python", breakable: true, width: 100%)`)
+  - stylized by (using [codly](https://github.com/Dherse/codly))
+  - read code block
+
+### Useful Functions
+
+#### Tables
+
+- `tableq(data, k, stroke: table-three-line(rgb("000")), inset: 0.3em)`: reading .csv, where `k` is the number of columns, and for stroke, `qooklet` provide 2 predefined styles
+  - `table-three-line(stroke-color)`: default style, for three-line table
+  - `table-no-left-right(stroke-color)`: for grid without left border and right border
+
+```typst
+#let data = csv("data.csv")
+#figure(
+  tableq(data, 5),
+  // stroke: table-three-line(rgb("000")),
+  // caption: ""
+  // supplement: "",
+  kind: table,
+)
+```
+
+#### Codes
+
+- `code(text, lang: "python", breakable: true, width: 100%)`: read stylized code blocks
+
+```typst
+#let compose = read("docker-compose.yml")
+#code(compose, lang: "yaml")
+```
 
 ### Environments
 
 - Theorem
-  - theorems enviroment is implemented by using [theorion](https://github.com/OrangeX4/typst-theorion)
+  - theorems enviroment is implemented by using [theorion](https://github.com/OrangeX4/typst-theorion) (the counters still needs tweaking in the booklet mode)
 - Shorthands
   - scientific shorthands are provided by [physica](https://github.com/Leedehai/typst-physics)
 
@@ -37,27 +65,22 @@ A quick start template for scientific booklets.
 
 Import `qooklet` from the `@preview` namespace.
 
-## Get Started
+### Note Mode
 
 ```typst
-#import "@preview/qooklet:0.3.0": *
-#show: body-style.with(
-  title: "Bellman Eqation",
+#import "@preview/qooklet:0.4.0": *
+#show: chapter-style.with(
+  title: "Chapter Title",
   // the following are optional arguments
-  // info: none
+  // title: "",
+  // info: default-info,
+  // styles: default-styles,
+  // names: default-names,
   // outline-on: false,
 )
 ```
 
-where `info` is an argument that let you customize the information of your book using a toml file (if you leave it alone, the following info will be empty). The toml file should look like this
-
-```toml
-[key-you-like]
-    book = "My First Book"
-    footer-cap = "ivaquero"
-    header-cap = "Reinforcement Learning"
-    lang = "en"
-```
+where `info` is an argument that let you customize the information of your booklet using a toml file (if you leave it alone, the following info will be empty).
 
 You can read you info file by the following sentence
 
@@ -65,22 +88,85 @@ You can read you info file by the following sentence
 #let info = toml("your path").key-you-like
 ```
 
-## Useful Functions
+The toml file should look like this
 
-The function `tableq(data, k, stroke: table-three-line(rgb("000")), inset: 0.3em)` is a quick shortcut of reading .csv, where `k` is the number of columns, and for stroke, `qooklet` provide 2 predefined styles
-
-- `table-three-line(stroke-color)`: default style, for three-line table
-- `table-no-left-right(stroke-color)`: for grid without left border and right border
-
-## Examples
-
-### Note Mode
+```toml
+[key-you-like]
+    title = "My First Booklet"
+    "author": "Your Name"
+    footer-cap = "Your Name"
+    header-cap = "Reinforcement Learning"
+    lang = "en" # or "zh"
+```
 
 ![example](https://raw.githubusercontent.com/ivaquero/typst-qooklet/refs/heads/main/example.png)
 
-### Book Mode
+### Booklet Mode
+
+The booklet mode will be mode will be activated after calling `cover()`
+
+```typst
+#import "@preview/qooklet:0.4.0": *
+
+#let info = toml(your-info-file-path).key-you-like
+// for example
+// #let info = toml("../config/info.toml").global
+
+// add a cover
+#cover(
+  // info,
+  // date: datetime.today(),
+)
+
+#epigraph[
+  // Add an epigraph to the document.
+]
+
+#preface[
+  // Add a preface to the document.
+]
+
+#contents
+
+// body
+#show: chapter-style.with(
+  title: "chapter-title 1",
+  info: info,
+)
+
+#show: chapter-style.with(
+  title: "chapter-title 2",
+  info: info,
+)
+...
+
+// appendix
+#part-page[Appendix]
+#show: appendix-style
+...
+```
 
 ![example-book](https://raw.githubusercontent.com/ivaquero/typst-qooklet/refs/heads/main/example-book.png)
+
+If you are not neither English speaker nor Chinese speaker, you needs to create another toml for section names, assume you are a French speaker, your file should be like
+
+```toml
+[sections.fr]
+    preface = "Préface"
+    chapter = "Chapitre"
+    content = "Table Des Matières"
+    bibliography = "Bibliographie"
+
+[blocks.fr]
+    algorithm = "Algorithme"
+    table = "Tableau"
+    figure = "Figure"
+    equation = " Eq."
+    rule = "Règle"
+    law = "Loi"
+```
+
+Don't forget to change the key `lang` in your info toml metioned above!
 
 For more details, see [examples.typ](https://github.com/ivaquero/typst-qooklet/blob/main/examples/example.typ) and [examples-book.typ](https://github.com/ivaquero/typst-qooklet/blob/main/examples/example-book.typ).
 
@@ -110,7 +196,6 @@ Also thanks the creators of the following packages
 
 - [hydra](https://github.com/tingerrr/hydra)
 - [physica](https://github.com/Leedehai/typst-physics)
-- [coldly](https://github.com/Dherse/codly)
+- [codly](https://github.com/Dherse/codly)
 - [codly-languages](https://github.com/swaits/typst-collection)
 - [theorion](https://github.com/OrangeX4/typst-theorion)
-- [numbly](https://github.com/flaribbit/numbly)

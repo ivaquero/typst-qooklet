@@ -2,21 +2,23 @@
     preface = "Preface"
     chapter = "Chapter"
     content = "Contents"
+    appendix = "Appendix"
     bibliography = "Bibliography"
-
-[sections.zh]
-    preface = "前言"
-    chapter = "章节"
-    content = "主要内容"
-    bibliography = "参考文献"
 
 [blocks.en]
     algorithm = "Algorithm"
     table = "Table"
     figure = "Figure"
-    equation = " Eq."
+    equation = " Eq. "
     rule = "Rule"
     law = "Law"
+
+[sections.zh]
+    preface = "前言"
+    chapter = "章节"
+    content = "主要内容"
+    appendix = "附录"
+    bibliography = "参考文献"
 
 [blocks.zh]
     algorithm = "算法"

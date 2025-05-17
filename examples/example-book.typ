@@ -1,32 +1,26 @@
 #import "@local/qooklet:0.1.0": *
 
-#cover(
-  title: [
-    Documentation of \
-    the Qooklet Template
-  ],
-  info: book-info,
-  date: datetime.today(),
-)
+#let example = toml("../0.1.0/config/info.toml").example
+#cover(example)
 
 #epigraph[
   By `epigraph()`, you can add a quote or a saying at the beginning of the book.
 ]
 
-#preface(info: default-info)[
+#preface(info: example)[
 
   By `preface()`, you can add some information about the book.
 
-  This template is heavily based the LaTeX book template #link("https://github.com/ParaN3xus/haobook")[haobook]. The main difference is that `qooklet` does not provide side-note-like features which is provided by `haobook` using #link("https://github.com/nleanba/typst-marginalia")[]
+  This template is heavily based the template #link("https://github.com/ParaN3xus/haobook")[haobook]. The main difference is that `qooklet` does not provide side-note-like features which is provided by `haobook` using #link("https://github.com/nleanba/typst-marginalia")[]
 
   This document serves both as a test document and a tutorial for the template. You can find the source code in the `example.typ` file. The template is designed to be user-friendly and customizable, allowing you to adapt it to your specific requirements.
 ]
 
-// #contents(2)
+#contents(depth: 1)
 
 #part-page()[Specifications]
 
-#show: body-style.with(title: "Features", info: book-info)
+#show: chapter-style.with(title: "Features", info: example)
 
 In this chapter, I will show you all the features of this template.
 
@@ -55,11 +49,11 @@ When I'm referencing something great@maedje2022typst, a detailed reference will 
 
 = Customizable Styles
 
-#show: body-style.with(title: "Usage of the Template", info: book-info)
+#show: chapter-style.with(title: "Usage of the Template", info: example)
 
 // #chapter-img(image("0.1.0/assets/cloud.jpg"))
 
-The template is designed to be easy to use. You can use it to create a book or a report with a beautiful layout.
+The template is designed to be easy to use. You can use it to create a booklet or a note with a beautiful layout.
 
 In this chapter, I will show you how to initialize the template and use a variety of utility functions provided.
 
@@ -68,7 +62,7 @@ In this chapter, I will show you how to initialize the template and use a variet
 To use the template, you need to import like this
 
 ```typ
-#import "@preview/qooklet:0.3.0": *
+#import "@preview/qooklet:0.4.0": *
 ```
 
 or clone the repository to your `@local` workspace
@@ -83,16 +77,16 @@ or clone the repository to your `@local` workspace
 #import "@local/qooklet:0.1.0": *
 ```
 
-The default mode is note mode, when `cover()` is called the book mode will be activated.
+The default mode is note mode, when `cover()` is called the booklet mode will be activated.
 
-In addition to the four functions returned by `template`, functions independent of book mode are also imported. All of these functions are:
+In addition to the four functions returned by `template`, functions independent of booklet mode are also imported. All of these functions are:
 
 - Styles:
   - `front-matter-style(body)`: Style for front matter pages.
   - `appendix-style(body)`: Style for appendix pages.
-  - `body-style(body)`: Style for body pages.
+  - `chapter-style(body)`: Style for body pages.
 - Pages:
-  - `cover(title: "The Title", author: "The Author", date: datetime.today())`: Add a cover page to the document.
+  - `cover(info, date: datetime.today())`: Add a cover page to the document.
   - `epigraph(body)`: Add an epigraph to the document.
   - `preface(body)`: Add a preface to the document.
   - `contents`: Add a table of contents to the document.
@@ -107,10 +101,13 @@ Overall, your document should be structured like this:
 ```typ
 #import "@local/qooklet:0.1.0": *
 
+#let info = toml(your-info-file-path).key-you-like
+// for example
+// #let info = toml("../config/info.toml").global
+
 // add a cover
 #cover(
-  // title: "The Title",
-  // author: "The Author",
+  // info,
   // date: datetime.today(),
 )
 
@@ -125,12 +122,12 @@ Overall, your document should be structured like this:
 #contents
 
 // body
-#show: body-style.with(
+#show: chapter-style.with(
   title: "chapter-title 1",
   info: info,
 )
 
-#show: body-style.with(
+#show: chapter-style.with(
   title: "chapter-title 2",
   info: info,
 )
@@ -159,7 +156,7 @@ The `chapter-img` function will create a level 1 heading with an image banner.
 
 Still buggy, don't use it at the moment.
 
-#show: body-style.with(title: "Enviroments", info: book-info)
+#show: chapter-style.with(title: "Enviroments", info: example)
 
 = Theorems
 
@@ -214,12 +211,10 @@ $ <boe>
 
 #part-page()[Appendix]
 
-#show: appendix-style
-
-= Bibliography
+#show: appendix-style.with(title: "Bibliography")
 
 #bibliography("bib.bib", title: none)
 
-= Notes
+#show: appendix-style.with(title: "Notes")
 
 I hate writing notes.

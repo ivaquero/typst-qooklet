@@ -1,8 +1,11 @@
 #import "@local/qooklet:0.1.0": *
 
-#show: body-style.with(
+#let example = toml("../0.1.0/config/info.toml").example
+// #cover(example)
+
+#show: chapter-style.with(
   title: "Bellman Equation",
-  info: default-info,
+  info: example,
 )
 
 = Bellman Equation
@@ -23,12 +26,14 @@
 
 = Bellman Optimal Eqation
 
-By Eq. @bellman,...
+By @bellman,...
 
 $
   v(s) &= max_(π(s) ∈ ∏(s)) ∑_(a ∈ 𝒜) π(a|s)(∑_(r ∈ ℛ) p(r|s, a) r + γ ∑_(s^′ ∈ 𝒮) p(s^′|s, a) v(s^′)), quad &∀s ∈ 𝒮 \
   &= max_(π(s) ∈ ∏(s)) ∑_(a ∈ 𝒜) π(a|s) q(s, a), quad &∀s ∈ 𝒮
 $ <boe>
+
+By @boe...
 
 = Case: Shortest Path of Islands
 
