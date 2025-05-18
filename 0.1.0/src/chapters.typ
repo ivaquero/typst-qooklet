@@ -2,10 +2,12 @@
 #import "common.typ": *
 #import "blocks.typ": *
 
-#let align-odd-even(odd-left, odd-right) = {
-  let chapter-page = query(label-chapter).filter(h => h.location().page() == here().page()).len()
+#let align-odd-even(odd-left, odd-right, hide: false) = {
+  let chapter-page = query(selector(label-chapter).or(label-appendix))
+    .filter(h => h.location().page() == here().page())
+    .len()
 
-  if chapter-page != 1 {
+  if chapter-page != 1 or hide == false {
     if calc.odd(here().page()) {
       align(right, [#odd-left #h(6fr) #odd-right])
     } else {
@@ -100,19 +102,6 @@
   let footer = info.footer
   let lang = info.lang
 
-  set page(
-    header: context {
-      set text(size: 8pt)
-      align-odd-even(header, emph(hydra(1)))
-      line(length: 100%)
-    },
-    footer: context {
-      set text(size: 8pt)
-      let page_num = here().page()
-      align-odd-even(footer, page_num)
-    },
-  )
-
   set par(
     first-line-indent: (
       amount: if lang == "zh" { 2em } else { 0em },
@@ -127,6 +116,19 @@
     font: styles.fonts.at(lang).context,
     size: 10.5pt,
     lang: lang,
+  )
+
+  set page(
+    header: context {
+      set text(size: 8pt)
+      align-odd-even(header, emph(hydra(1)), hide: true)
+      line(length: 100%)
+    },
+    footer: context {
+      set text(size: 8pt)
+      let page_num = here().page()
+      align-odd-even(footer, page_num)
+    },
   )
 
   context {

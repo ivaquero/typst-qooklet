@@ -1,7 +1,7 @@
 #import "deps.typ": *
 #import "common.typ": *
 #import "front-matters.typ": part-page
-#import "chapters.typ": chapter-title
+#import "chapters.typ": chapter-title, align-odd-even
 
 #let appendix-style(
   body,
@@ -24,14 +24,13 @@
     lang: lang,
   )
 
+
   align(center, chapter-title(title, book: true, lang: lang, appendix: true))
 
   show heading: heading-style
   set heading(
     numbering: (..numbers) => {
-      let title-index = if book-state.get() { context counter(label-appendix).display("A.") } else {
-        none
-      }
+      let title-index = context counter(label-appendix).display("A.")
       let level = numbers.pos().len()
       if (level == 1) {
         title-index + numbering("1", numbers.at(0))
@@ -40,6 +39,19 @@
       } else {
         h(-0.3em)
       }
+    },
+  )
+
+  set page(
+    header: context {
+      set text(size: 8pt)
+      align-odd-even("", title, hide: true)
+      line(length: 100%)
+    },
+    footer: context {
+      set text(size: 8pt)
+      let page_num = here().page()
+      align-odd-even(info.title, page_num)
     },
   )
 

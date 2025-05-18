@@ -34,15 +34,14 @@
 
     let chap-index = context counter(label-chapter).at(loc).at(0)
     let appd-index = context counter(label-appendix).at(loc).at(0)
+    let ind = if (appd-index == chap-index) { yes }
 
     if (depth >= 1) and (func == figure) {
-      let ind = if appd-index != true { "" }
-
       link(
         loc,
         {
           (
-            chap-index + "." + h(.5em) + smallcaps(strong(x.body())) + fill + strong(x.page()) + v(0em)
+            appd-index + chap-index + "." + h(.5em) + smallcaps(strong(x.body())) + fill + strong(x.page()) + v(0em)
           )
         },
       )

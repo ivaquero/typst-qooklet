@@ -1,6 +1,8 @@
 #import "deps.typ": default-styles, default-names
 
 #let book-state = state("book-state", false)
+#let content-prefix = state("content-prefix")
+
 #let label-chapter = <chapter>
 #let label-appendix = <appendix>
 #let label-part = <part>

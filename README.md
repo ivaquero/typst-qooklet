@@ -92,10 +92,10 @@ The toml file should look like this
 
 ```toml
 [key-you-like]
-    title = "My First Booklet"
-    "author": "Your Name"
-    footer-cap = "Your Name"
-    header-cap = "Reinforcement Learning"
+    title = "Your Booklet Name"
+    author = "Your Name"
+    footer-cap = "Some Info You Want to Show"
+    header-cap = "Some Info You Want to Show"
     lang = "en" # or "zh"
 ```
 
@@ -194,8 +194,8 @@ Thanks @ParaN3xus for his [haobook](https://github.com/ParaN3xus/haobook) which 
 
 Also thanks the creators of the following packages
 
-- [hydra](https://github.com/tingerrr/hydra)
-- [physica](https://github.com/Leedehai/typst-physics)
-- [codly](https://github.com/Dherse/codly)
-- [codly-languages](https://github.com/swaits/typst-collection)
-- [theorion](https://github.com/OrangeX4/typst-theorion)
+- tingerrr: [hydra](https://github.com/tingerrr/hydra)
+- Leedehai: [physica](https://github.com/Leedehai/typst-physics)
+- Dherse: [codly](https://github.com/Dherse/codly)
+- swaits: [codly-languages](https://github.com/swaits/typst-collection)
+- OrangeX4: [theorion](https://github.com/OrangeX4/typst-theorion)
