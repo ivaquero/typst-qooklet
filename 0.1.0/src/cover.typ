@@ -1,4 +1,4 @@
-#import "deps.typ": default-info, default-styles
+#import "dependencies.typ": default-info, default-styles
 #import "common.typ": book-state, book-style
 
 #let cover-style(body, styles: default-styles) = {

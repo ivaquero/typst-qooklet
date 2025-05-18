@@ -16,7 +16,7 @@
   This document serves both as a test document and a tutorial for the template. You can find the source code in the `example.typ` file. The template is designed to be user-friendly and customizable, allowing you to adapt it to your specific requirements.
 ]
 
-#contents(depth: 1)
+#contents(depth: 2)
 
 #part-page()[Specifications]
 
@@ -62,7 +62,7 @@ In this chapter, I will show you how to initialize the template and use a variet
 To use the template, you need to import like this
 
 ```typ
-#import "@preview/qooklet:0.4.0": *
+#import "@preview/qooklet:0.5.0": *
 ```
 
 or clone the repository to your `@local` workspace
@@ -155,6 +155,8 @@ In this chapter, I will show you how to use some functions, mainly tool function
 The `chapter-img` function will create a level 1 heading with an image banner.
 
 Still buggy, don't use it at the moment.
+
+#part-page()[Dependencies]
 
 #show: chapter-style.with(title: "Enviroments", info: example)
 

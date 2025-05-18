@@ -1,4 +1,4 @@
-#import "deps.typ": default-info, default-styles, default-names
+#import "dependencies.typ": default-info, default-styles, default-names
 #import "common.typ": *
 
 #let front-matter-style(body, styles: default-styles) = {
@@ -58,15 +58,13 @@
 
   align(
     center + horizon,
-    [
-      #figure(
-        text(36pt, strong(title), font: styles.fonts.at(lang).part),
-        kind: "part",
-        supplement: none,
-        numbering: _ => none,
-        caption: title,
-      ) #label-part
-    ],
+    figure(
+      text(36pt, strong(title), font: styles.fonts.at(lang).part),
+      kind: "part",
+      supplement: none,
+      numbering: _ => none,
+      caption: title,
+    ),
   )
   pagebreak(to: "odd")
 }

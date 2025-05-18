@@ -1,9 +1,9 @@
-#import "deps.typ": *
+#import "dependencies.typ": *
 #import "common.typ": *
 #import "blocks.typ": *
 
 #let align-odd-even(odd-left, odd-right, hide: false) = {
-  let chapter-page = query(selector(label-chapter).or(label-appendix))
+  let chapter-page = query(selector(fig-chapter).or(fig-appendix))
     .filter(h => h.location().page() == here().page())
     .len()
 
@@ -31,7 +31,8 @@
     weight: "bold",
   )
 
-  let label-title = if appendix == true { label-appendix } else { label-chapter }
+  let the-counter = if appendix == true { counter-appendix } else { counter-chapter }
+  let the-kind = if appendix == true { "appendix" } else { "chapter" }
   let heading-prefix = if appendix == true { "A" } else { "1" }
 
   if book != true {
@@ -40,7 +41,7 @@
   } else {
     pagebreak(weak: true, to: "odd")
     show figure.caption: none
-    let title-index = context counter(label-title).display(heading-prefix)
+    let chapter-index = context the-counter.display(heading-prefix)
 
     let bottom-pad = 10%
     block(
@@ -53,18 +54,18 @@
           right + bottom,
           dx: -1%,
           pad(
-            [#figure(
-                the-title,
-                kind: "title",
-                supplement: none,
-                numbering: _ => none,
-                caption: title,
-              )#label-title],
+            figure(
+              the-title,
+              kind: the-kind,
+              supplement: none,
+              numbering: _ => none,
+              caption: title,
+            ),
             bottom: bottom-pad,
           ),
         ),
         line(angle: 90deg, length: 100%),
-        pad(text(50pt, title-index, font: styles.fonts.at(lang).title, weight: "bold")),
+        pad(text(50pt, chapter-index, font: styles.fonts.at(lang).title, weight: "bold")),
       ),
     )
   }
@@ -75,16 +76,30 @@
     place(
       right + bottom,
       dx: 1%,
-      [#figure(
-          img,
-          placement: top,
-          kind: "chapimg",
-          supplement: none,
-          numbering: _ => none,
-          caption: title,
-        )#label-chapimg],
+      figure(
+        img,
+        placement: top,
+        kind: "chapimg",
+        supplement: none,
+        numbering: _ => none,
+        caption: title,
+      ),
     ),
   )
+}
+
+#let heading-size-style(x) = {
+  if x.level == 1 {
+    set text(16pt)
+  } else if x.level == 2 {
+    set text(14pt)
+  } else if x.level == 3 {
+    set text(12pt)
+  } else {
+    set text(10.5pt)
+  }
+  x
+  v(1em, weak: true)
 }
 
 #let chapter-style(
@@ -139,17 +154,17 @@
     }
   }
 
-  show heading: heading-style
+  show heading: heading-size-style
   set heading(
     numbering: (..numbers) => {
-      let title-index = if book-state.get() { context counter(label-chapter).display("1.") } else {
+      let chapter-index = if book-state.get() { context counter-chapter.display("1.") } else {
         none
       }
       let level = numbers.pos().len()
       if (level == 1) {
-        title-index + numbering("1.", numbers.at(0))
+        chapter-index + numbering("1.", numbers.at(0))
       } else if (level == 2) {
-        title-index + numbering("1.", numbers.at(0)) + numbering("1", numbers.at(1))
+        chapter-index + numbering("1.", numbers.at(0)) + numbering("1", numbers.at(1))
       } else {
         h(-0.3em)
       }

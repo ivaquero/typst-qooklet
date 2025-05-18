@@ -1,6 +1,6 @@
-#import "deps.typ": codly, codly-init, codly-languages
-#import "common.typ": book-state, label-chapter
-#import "deps.typ": default-names
+#import "dependencies.typ": codly, codly-init, codly-languages
+#import "common.typ": book-state, counter-chapter
+#import "dependencies.typ": default-names
 
 #let equation-numbering-style(x) = {
   show math.equation: it => {
@@ -8,7 +8,7 @@
       math.equation(
         block: true,
         numbering: if book-state.get() {
-          let title-index = context counter(label-chapter).display("1")
+          let title-index = context counter-chapter.display("1")
           let eq-index = counter(selector(math.equation).before(here())).get().first()
           n => {
             "(" + title-index + "." + str(eq-index + 1) + ")"
@@ -34,7 +34,7 @@
     let loc = el.location()
     if el.func() == math.equation {
       if book-state.get() {
-        let title-index = context counter(label-chapter).get().first()
+        let title-index = context counter-chapter.get().first()
         let eq-index = counter(selector(math.equation).before(here())).get().first()
         (
           names.blocks.at(lang).equation
@@ -82,7 +82,7 @@
     #context it.counter.display(it.numbering)
     #it.body
   ]
-  show figure.caption.where(kind: "title"): none
+  show figure.caption.where(kind: "chapter"): none
   x
 }
 
@@ -117,20 +117,3 @@
   show: codly-init.with()
   body
 }
-
-#let code(text, lang: "python", breakable: true, width: 100%) = block(
-  fill: rgb("#F3F3F3"),
-  stroke: rgb("#DBDBDB"),
-  inset: (x: 1em, y: 1em),
-  outset: -.3em,
-  radius: 5pt,
-  spacing: 1em,
-  breakable: breakable,
-  width: width,
-  raw(
-    text,
-    lang: lang,
-    align: left,
-    block: true,
-  ),
-)

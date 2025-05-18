@@ -1,12 +1,15 @@
-#import "deps.typ": default-styles, default-names
+#import "dependencies.typ": default-styles, default-names
 
 #let book-state = state("book-state", false)
 #let content-prefix = state("content-prefix")
 
-#let label-chapter = <chapter>
-#let label-appendix = <appendix>
-#let label-part = <part>
-#let label-chapimg = <chapimg>
+#let fig-chapter = figure.where(kind: "chapter")
+#let fig-appendix = figure.where(kind: "appendix")
+#let fig-part = figure.where(kind: "part")
+#let fig-chapimg = figure.where(kind: "chapimg")
+
+#let counter-chapter = counter(fig-chapter)
+#let counter-appendix = counter(fig-appendix)
 
 #let book-style(body, styles: default-styles) = {
   show: it => context {
@@ -30,18 +33,4 @@
   show link: set text(blue.lighten(10%))
   show link: underline
   body
-}
-
-#let heading-style(x) = {
-  if x.level == 1 {
-    set text(16pt)
-  } else if x.level == 2 {
-    set text(14pt)
-  } else if x.level == 3 {
-    set text(12pt)
-  } else {
-    set text(10.5pt)
-  }
-  x
-  v(1em, weak: true)
 }
