@@ -109,8 +109,7 @@ The booklet mode will be mode will be activated after calling `cover()`
 #import "@preview/qooklet:0.5.0": *
 
 #let info = toml(your-info-file-path).key-you-like
-// for example
-// #let info = toml("../config/info.toml").global
+// for example: #let info = toml("config/info.toml").global
 
 // add a cover
 #cover(
@@ -142,7 +141,16 @@ The booklet mode will be mode will be activated after calling `cover()`
 
 // appendix
 #part-page[Appendix]
-#show: appendix-style
+
+#show: appendix-stylechapter-style.with(
+  title: "Appendix-title 1",
+  info: info,
+)
+
+#show: appendix-stylechapter-style.with(
+  title: "Appendix-title 2",
+  info: info,
+)
 ...
 ```
 
@@ -194,8 +202,8 @@ Thanks @ParaN3xus for his [haobook](https://github.com/ParaN3xus/haobook) which 
 
 Also thanks the creators of the following packages
 
-- tingerrr: [hydra](https://github.com/tingerrr/hydra)
-- Leedehai: [physica](https://github.com/Leedehai/typst-physics)
-- Dherse: [codly](https://github.com/Dherse/codly)
-- swaits: [codly-languages](https://github.com/swaits/typst-collection)
-- OrangeX4: [theorion](https://github.com/OrangeX4/typst-theorion)
+- @tingerrr: [hydra](https://github.com/tingerrr/hydra)
+- @Leedehai: [physica](https://github.com/Leedehai/typst-physics)
+- @Dherse: [codly](https://github.com/Dherse/codly)
+- @swaits: [codly-languages](https://github.com/swaits/typst-collection)
+- @OrangeX4: [theorion](https://github.com/OrangeX4/typst-theorion)

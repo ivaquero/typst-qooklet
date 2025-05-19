@@ -135,7 +135,16 @@ Overall, your document should be structured like this:
 
 // appendix
 #part-page[Appendix]
-#show: appendix-style
+
+#show: appendix-stylechapter-style.with(
+  title: "Appendix-title 1",
+  info: info,
+)
+
+#show: appendix-stylechapter-style.with(
+  title: "Appendix-title 2",
+  info: info,
+)
 ...
 ```
 
