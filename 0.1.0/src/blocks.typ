@@ -1,22 +1,25 @@
-#import "dependencies.typ": codly, codly-init, codly-languages
-#import "common.typ": book-state, counter-chapter
-#import "dependencies.typ": default-names
+#import "dependencies.typ": default-names, codly, codly-init, codly-languages
+#import "common.typ": book-state, counter-chapter, counter-appendix
 
-#let equation-numbering-style(x) = {
+#let equation-numbering-style(x, prefix: "chapter") = {
   show math.equation: it => {
+    let loc = it.location()
     if it.has("label") {
       math.equation(
         block: true,
         numbering: if book-state.get() {
-          let title-index = context counter-chapter.display("1")
-          let eq-index = counter(selector(math.equation).before(here())).get().first()
+          let title-index = if prefix == "chapter" { counter-chapter.get().first() } else if prefix == "appendix" {
+            "ABCDE".at(counter-appendix.get().first() - 1)
+          }
+          let eq-index = counter(math.equation).at(loc).first()
           n => {
-            "(" + title-index + "." + str(eq-index + 1) + ")"
+            "(" + str(title-index) + "." + str(eq-index + 1) + ")"
           }
         } else {
           let h1 = counter(heading).get().first()
+          let num-style = if prefix == "chapter" { "(1.1)" } else if prefix == "appendix" { "(a.1)" }
           n => {
-            numbering("(1.1)", h1, n)
+            numbering(num-style, h1, n)
           }
         },
         it,
@@ -28,21 +31,23 @@
   x
 }
 
-#let ref-numbering-style(x, lang: "en", names: default-names) = {
+#let ref-numbering-style(x, lang: "en", names: default-names, prefix: "chapter") = {
   let el = x.element
   if el != none {
     let loc = el.location()
     if el.func() == math.equation {
       if book-state.get() {
-        let title-index = context counter-chapter.get().first()
-        let eq-index = counter(selector(math.equation).before(here())).get().first()
+        let title-index = if prefix == "chapter" { counter-chapter.get().first() } else if prefix == "appendix" {
+          "ABCDE".at(counter-appendix.get().first() - 1)
+        }
+        let eq-index = counter(math.equation).at(loc).first()
         (
           names.blocks.at(lang).equation
             + link(
               loc,
               numbering(
                 n => {
-                  "(" + title-index + "." + str(eq-index) + ")"
+                  "(" + str(title-index) + "." + str(eq-index + 1) + ")"
                 },
                 eq-index + 1,
               ),

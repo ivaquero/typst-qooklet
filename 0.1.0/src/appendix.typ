@@ -1,6 +1,7 @@
 #import "dependencies.typ": *
 #import "common.typ": *
 #import "front-matters.typ": part-page
+#import "blocks.typ": *
 #import "chapters.typ": align-odd-even, chapter-title, heading-size-style
 
 #let appendix-style(
@@ -53,6 +54,18 @@
       align-odd-even(info.title, page_num)
     },
   )
+
+  show math.equation: equation-numbering-style.with(prefix: "appendix")
+  show heading.where(level: 1): it => {
+    counter(math.equation).update(0)
+    it
+  }
+
+  show ref: ref-supplement-style.with(lang: lang)
+  show ref: ref-numbering-style.with(lang: lang, names: names, prefix: "appendix")
+  show figure: figure-supplement-style
+  show figure.where(kind: table): set figure.caption(position: top)
+  show raw.where(block: true): code-block-style
 
   set-theorion-numbering("A.1")
   body

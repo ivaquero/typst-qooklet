@@ -190,7 +190,6 @@
   show math.equation: equation-numbering-style
   show heading.where(level: 1): it => {
     counter(math.equation).update(0)
-    counter(figure).update(0)
     it
   }
 
