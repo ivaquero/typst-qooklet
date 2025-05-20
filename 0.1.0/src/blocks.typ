@@ -38,7 +38,7 @@
     if el.func() == math.equation {
       if book-state.get() {
         let title-index = if prefix == "chapter" { counter-chapter.get().first() } else if prefix == "appendix" {
-          "ABCDE".at(counter-appendix.get().first() - 1)
+          "abcde".at(counter-appendix.get().first() - 1)
         }
         let eq-index = counter(math.equation).at(loc).first()
         (

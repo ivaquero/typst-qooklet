@@ -1,23 +1,18 @@
 #import "dependencies.typ": *
 #import "common.typ": *
-#import "front-matters.typ": part-page
 #import "blocks.typ": *
+#import "front-matters.typ": part-page
 #import "chapters.typ": align-odd-even, chapter-title, heading-size-style
 
 #let appendix-style(
   body,
   title: "",
-  part: false,
   info: default-info,
   styles: default-styles,
   names: default-names,
 ) = {
   let lang = info.lang
   show: book-style.with(styles: styles)
-
-  if part == true {
-    part-page(lang: lang, names.sections.at(lang).appendix)
-  }
 
   set text(
     font: styles.fonts.at(lang).context,
