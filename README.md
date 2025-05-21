@@ -94,8 +94,8 @@ The toml file should look like this
 [key-you-like]
     title = "Your Booklet Name"
     author = "Your Name"
-    footer-cap = "Some Info You Want to Show"
-    header-cap = "Some Info You Want to Show"
+    footer = "Some Info You Want to Show"
+    header = "Some Info You Want to Show"
     lang = "en" # or "zh"
 ```
 

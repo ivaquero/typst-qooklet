@@ -1,6 +1,6 @@
 #import "dependencies.typ": *
 #import "common.typ": *
-#import "blocks.typ": *
+#import "referable.typ": *
 #import "front-matters.typ": part-page
 #import "chapters.typ": align-odd-even, chapter-title, heading-size-style
 
@@ -56,8 +56,7 @@
     it
   }
 
-  show ref: ref-supplement-style.with(lang: lang)
-  show ref: ref-numbering-style.with(lang: lang, names: names, prefix: "appendix")
+  show ref: ref-style.with(lang: lang, names: names, prefix: "appendix")
   show figure: figure-supplement-style
   show figure.where(kind: table): set figure.caption(position: top)
   show raw.where(block: true): code-block-style
