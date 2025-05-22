@@ -41,10 +41,5 @@
   spacing: 1em,
   breakable: breakable,
   width: width,
-  raw(
-    text,
-    lang: lang,
-    align: left,
-    block: true,
-  ),
+  raw(text, lang: lang, align: left, block: true),
 )

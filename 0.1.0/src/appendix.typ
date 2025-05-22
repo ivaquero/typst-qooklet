@@ -2,7 +2,7 @@
 #import "common.typ": *
 #import "referable.typ": *
 #import "front-matters.typ": part-page
-#import "chapters.typ": align-odd-even, chapter-title, heading-size-style
+#import "chapters.typ": align-odd-even, chapter-title, heading-numbering, heading-size-style
 
 #let appendix-style(
   body,
@@ -10,31 +10,23 @@
   info: default-info,
   styles: default-styles,
   names: default-names,
+  heading-depth: 3,
 ) = {
   let lang = info.lang
   show: book-style.with(styles: styles)
 
-  set text(
-    font: styles.fonts.at(lang).context,
-    size: 10.5pt,
-    lang: lang,
-  )
+  set text(font: styles.fonts.at(lang).context, size: 10.5pt, lang: lang)
 
   align(center, chapter-title(title, book: true, lang: lang, appendix: true))
 
+  let append-index = context counter-appendix.display("A.")
   show heading: heading-size-style
   set heading(
-    numbering: (..numbers) => {
-      let append-index = context counter-appendix.display("A.")
-      let level = numbers.pos().len()
-      if (level == 1) {
-        append-index + numbering("1", numbers.at(0))
-      } else if (level == 2) {
-        append-index + numbering("1.", numbers.at(0)) + numbering("1", numbers.at(1))
-      } else {
-        h(-0.3em)
-      }
-    },
+    numbering: (..numbers) => heading-numbering(
+      ..numbers,
+      prefix: append-index,
+      heading-depth: heading-depth,
+    ),
   )
 
   set page(

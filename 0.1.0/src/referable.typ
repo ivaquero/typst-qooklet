@@ -1,5 +1,13 @@
-#import "dependencies.typ": default-names, codly, codly-init, codly-languages
-#import "common.typ": book-state, counter-chapter, counter-appendix
+#import "dependencies.typ": codly, codly-init, codly-languages, default-names
+#import "common.typ": book-state, counter-appendix, counter-chapter
+
+#let equation-prefix(prefix) = {
+  if prefix == "chapter" {
+    counter-chapter.get().first()
+  } else if prefix == "appendix" {
+    "abcde".at(counter-appendix.get().first() - 1)
+  }
+}
 
 #let equation-numbering-style(x, prefix: "chapter") = {
   show math.equation: it => {
@@ -8,16 +16,16 @@
       math.equation(
         block: true,
         numbering: if book-state.get() {
-          let title-index = if prefix == "chapter" { counter-chapter.get().first() } else if prefix == "appendix" {
-            "ABCDE".at(counter-appendix.get().first() - 1)
-          }
+          let title-index = equation-prefix(prefix)
           let eq-index = counter(math.equation).at(loc).first()
           n => {
             "(" + str(title-index) + "." + str(eq-index + 1) + ")"
           }
         } else {
           let h1 = counter(heading).get().first()
-          let num-style = if prefix == "chapter" { "(1.1)" } else if prefix == "appendix" { "(a.1)" }
+          let num-style = if prefix == "chapter" { "(1.1)" } else if (
+            prefix == "appendix"
+          ) { "(a.1)" }
           n => {
             numbering(num-style, h1, n)
           }
@@ -37,9 +45,7 @@
   let loc = el.location()
   if el.func() == math.equation {
     if book-state.get() {
-      let title-index = if prefix == "chapter" { counter-chapter.get().first() } else if prefix == "appendix" {
-        "abcde".at(counter-appendix.get().first() - 1)
-      }
+      let title-index = equation-prefix(prefix)
       let eq-index = counter(math.equation).at(loc).first()
       (
         names.blocks.at(lang).equation
@@ -56,8 +62,9 @@
     } else {
       let h1 = counter(heading).at(loc).first()
       let index = counter(math.equation).at(loc).first()
-
-      names.blocks.at(lang).equation + link(loc, numbering("(1.1)", h1, index + 1))
+      (
+        names.blocks.at(lang).equation + link(loc, numbering("(1.1)", h1, index + 1))
+      )
     }
   } else { x }
 }

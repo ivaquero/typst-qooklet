@@ -1,6 +1,6 @@
 #import "dependencies.typ": *
-#import "cover.typ": cover, epigraph, cover-style
-#import "front-matters.typ": preface, part-page, front-matter-style
+#import "cover.typ": cover, cover-style, epigraph
+#import "front-matters.typ": front-matter-style, part-page, preface
 #import "contents.typ": contents, contents-style
 #import "chapters.typ": chapter-style
 #import "appendix.typ": appendix-style

@@ -1,4 +1,4 @@
-#import "dependencies.typ": default-info, default-styles, default-names
+#import "dependencies.typ": default-info, default-names, default-styles
 #import "common.typ": *
 
 #let front-matter-style(body, styles: default-styles) = {
@@ -16,7 +16,12 @@
   text(body, size: 14pt)
 }
 
-#let preface(body, info: default-info, styles: default-styles, names: default-names) = {
+#let preface(
+  body,
+  info: default-info,
+  styles: default-styles,
+  names: default-names,
+) = {
   show: common-style
   show: front-matter-style
 
@@ -36,11 +41,7 @@
     ),
   )
 
-  set text(
-    font: styles.fonts.at(lang).context,
-    size: 10.5pt,
-    lang: lang,
-  )
+  set text(font: styles.fonts.at(lang).context, size: 10.5pt, lang: lang)
 
   v(2em)
   body

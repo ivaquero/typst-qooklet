@@ -23,12 +23,7 @@
   align(
     center + horizon,
     [
-      #text(
-        size: 36pt,
-        weight: "bold",
-        font: styles.fonts.at(lang).title,
-        title,
-      )
+      #text(size: 36pt, weight: "bold", font: styles.fonts.at(lang).title, title)
       #v(1em)
       #text(24pt, font: styles.fonts.at(lang).author, author)
       #v(1em)
@@ -41,8 +36,5 @@
   body,
 ) = {
   show: cover-style
-  align(
-    center + horizon,
-    text(16pt, body),
-  )
+  align(center + horizon, text(16pt, body))
 }

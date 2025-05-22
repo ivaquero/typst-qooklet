@@ -1,7 +1,13 @@
-#import "dependencies.typ": default-info, default-styles, default-names
+#import "dependencies.typ": default-info, default-names, default-styles
 #import "common.typ": *
 
-#let contents-style(body, depth: 2, info: default-info, names: default-names, styles: default-styles) = {
+#let contents-style(
+  body,
+  depth: 2,
+  info: default-info,
+  names: default-names,
+  styles: default-styles,
+) = {
   assert(depth in (1, 2), message: "depth can only be either 1 or 2")
 
   show: book-style.with(styles: styles)
@@ -18,11 +24,7 @@
 
   set outline(
     title: {
-      heading(
-        outlined: true,
-        level: 1,
-        names.sections.at(lang).content,
-      )
+      heading(outlined: true, level: 1, names.sections.at(lang).content)
     },
   )
 
@@ -47,7 +49,9 @@
       } else if kind == "appendix" {
         link(loc, strong(append-prefix + entry-base))
       }
-    } else if (depth == 2) and (x.level == 1) and (prefix != none) and (append-index == 0) {
+    } else if (
+      (depth == 2) and (x.level == 1) and (prefix != none) and (append-index == 0)
+    ) {
       link(
         loc,
         (
@@ -69,7 +73,10 @@
 
 #let contents(depth: 2, info: default-info) = {
   show: contents-style.with(depth: depth, info: info)
-  outline(target: selector(heading).or(fig-part).or(fig-chapter).or(fig-appendix), depth: depth)
+  outline(
+    target: selector(heading).or(fig-part).or(fig-chapter).or(fig-appendix),
+    depth: depth,
+  )
   pagebreak(to: "odd")
 
   show outline: it => if query(it.target) == () { }

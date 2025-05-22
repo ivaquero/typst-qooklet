@@ -1,6 +1,6 @@
 // styles
 #import "@preview/hydra:0.6.1": hydra
-#import "@preview/codly:1.3.0": codly-init, codly
+#import "@preview/codly:1.3.0": codly, codly-init
 #import "@preview/codly-languages:0.1.8": codly-languages
 // environments
 #import "@preview/theorion:0.3.3": *

@@ -3,10 +3,7 @@
 #let example = toml("../0.1.0/config/info.toml").example
 // #cover(example)
 
-#show: chapter-style.with(
-  title: "Bellman Equation",
-  info: example,
-)
+#show: chapter-style.with(title: "Bellman Equation", info: example)
 
 = Bellman Equation
 

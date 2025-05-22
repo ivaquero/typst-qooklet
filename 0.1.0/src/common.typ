@@ -1,7 +1,6 @@
-#import "dependencies.typ": default-styles, default-names
+#import "dependencies.typ": default-names, default-styles
 
 #let book-state = state("book-state", false)
-#let content-prefix = state("content-prefix")
 
 #let fig-chapter = figure.where(kind: "chapter")
 #let fig-appendix = figure.where(kind: "appendix")

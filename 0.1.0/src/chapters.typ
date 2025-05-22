@@ -31,8 +31,10 @@
     weight: "bold",
   )
 
-  let the-counter = if appendix == true { counter-appendix } else { counter-chapter }
   let the-kind = if appendix == true { "appendix" } else { "chapter" }
+  let the-counter = if appendix == true { counter-appendix } else {
+    counter-chapter
+  }
   let heading-prefix = if appendix == true { "A" } else { "1" }
 
   if book != true {
@@ -65,7 +67,14 @@
           ),
         ),
         line(angle: 90deg, length: 100%),
-        pad(text(50pt, chapter-index, font: styles.fonts.at(lang).title, weight: "bold")),
+        pad(
+          text(
+            50pt,
+            chapter-index,
+            font: styles.fonts.at(lang).title,
+            weight: "bold",
+          ),
+        ),
       ),
     )
   }
@@ -97,6 +106,23 @@
   v(1em, weak: true)
 }
 
+#let heading-numbering(..numbers, prefix: none, heading-depth: 3) = {
+  let the-prefix = if book-state.get() { prefix }
+  let heading-depth2 = if book-state.get() { heading-depth - 1 } else {
+    heading-depth
+  }
+  let level = numbers.pos().len()
+  if (level == 1) {
+    the-prefix + numbering("1.", ..numbers)
+  } else if (level == 2) {
+    the-prefix + numbering("1.", ..numbers)
+  } else if (level == 3) and (heading-depth2 == 3) {
+    the-prefix + numbering("1.", ..numbers)
+  } else {
+    h(-0.3em)
+  }
+}
+
 #let chapter-style(
   body,
   title: "",
@@ -104,7 +130,13 @@
   styles: default-styles,
   names: default-names,
   outline-on: false,
+  heading-depth: 3,
 ) = {
+  assert(
+    heading-depth in (1, 2, 3),
+    message: "depth can only be either 1, 2 or 3",
+  )
+
   show: common-style
   show: book-style.with(styles: styles)
 
@@ -122,11 +154,7 @@
     spacing: 1em,
   )
 
-  set text(
-    font: styles.fonts.at(lang).context,
-    size: 10.5pt,
-    lang: lang,
-  )
+  set text(font: styles.fonts.at(lang).context, size: 10.5pt, lang: lang)
 
   set page(
     header: context {
@@ -149,19 +177,14 @@
     }
   }
 
+  let chapter-index = context counter-chapter.display("1.")
   show heading: heading-size-style
   set heading(
-    numbering: (..numbers) => {
-      let chapter-index = if book-state.get() { context counter-chapter.display("1.") }
-      let level = numbers.pos().len()
-      if (level == 1) {
-        chapter-index + numbering("1.", numbers.at(0))
-      } else if (level == 2) {
-        chapter-index + numbering("1.", numbers.at(0)) + numbering("1", numbers.at(1))
-      } else {
-        h(-0.3em)
-      }
-    },
+    numbering: (..numbers) => heading-numbering(
+      ..numbers,
+      prefix: chapter-index,
+      heading-depth: heading-depth,
+    ),
   )
 
   show pagebreak.where(weak: true): it => {

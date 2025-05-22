@@ -35,11 +35,7 @@ In this chapter, I will show you all the features of this template.
 When I'm adding a figure, the caption will be shown in the margin.
 
 #figure(
-  rect(
-    width: 100%,
-    height: 1cm,
-    fill: gradient.linear(..color.map.rainbow),
-  ),
+  rect(width: 100%, height: 1cm, fill: gradient.linear(..color.map.rainbow)),
   caption: [A rainbow],
 )
 
