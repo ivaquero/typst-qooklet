@@ -18,9 +18,8 @@
 
 #let chapter-title(
   title,
-  book: false,
   lang: "en",
-  appendix: false,
+  prefix: "chapter",
   styles: default-styles,
 ) = {
   let the-title = text(
@@ -31,19 +30,15 @@
     weight: "bold",
   )
 
-  let the-kind = if appendix == true { "appendix" } else { "chapter" }
-  let the-counter = if appendix == true { counter-appendix } else {
-    counter-chapter
-  }
-  let heading-prefix = if appendix == true { "A" } else { "1" }
-
-  if book != true {
+  context if not book-state.get() {
     the-title
     v(2em)
   } else {
     pagebreak(weak: true, to: "odd")
     show figure.caption: none
-    let chapter-index = context the-counter.display(heading-prefix)
+    let prefix-index = context if (prefix == "chapter") { counter-chapter.display("1") } else if (
+      prefix == "appendix"
+    ) { counter-appendix.display("A") }
 
     let bottom-pad = 10%
     block(
@@ -58,7 +53,7 @@
           pad(
             figure(
               the-title,
-              kind: the-kind,
+              kind: prefix,
               supplement: none,
               numbering: _ => none,
               caption: title,
@@ -70,7 +65,7 @@
         pad(
           text(
             50pt,
-            chapter-index,
+            prefix-index,
             font: styles.fonts.at(lang).title,
             weight: "bold",
           ),
@@ -106,21 +101,36 @@
   v(1em, weak: true)
 }
 
-#let heading-numbering(..numbers, prefix: none, heading-depth: 3) = {
-  let the-prefix = if book-state.get() { prefix }
+#let heading-numbering(..numbers, prefix: "chapter", heading-depth: 3) = {
+  let the-prefix = if book-state.get() {
+    if (prefix == "chapter") { counter-chapter.display("1.") } else if (
+      prefix == "appendix"
+    ) { counter-appendix.display("A.") }
+  }
   let heading-depth2 = if book-state.get() { heading-depth - 1 } else {
     heading-depth
   }
   let level = numbers.pos().len()
-  if (level == 1) {
-    the-prefix + numbering("1.", ..numbers)
-  } else if (level == 2) {
+  if (level == 1) or (level == 2) {
     the-prefix + numbering("1.", ..numbers)
   } else if (level == 3) and (heading-depth2 == 3) {
     the-prefix + numbering("1.", ..numbers)
   } else {
     h(-0.3em)
   }
+}
+
+#let code-block-style(body) = {
+  codly(
+    languages: codly-languages,
+    display-name: false,
+    fill: rgb("#F2F3F4"),
+    zebra-fill: none,
+    inset: (x: .3em, y: .3em),
+    radius: .5em,
+  )
+  show: codly-init.with()
+  body
 }
 
 #let chapter-style(
@@ -130,6 +140,7 @@
   styles: default-styles,
   names: default-names,
   outline-on: false,
+  prefix: "chapter",
   heading-depth: 3,
 ) = {
   assert(
@@ -169,20 +180,13 @@
     },
   )
 
-  context {
-    if book-state.get() {
-      align(center, chapter-title(title, book: true, lang: lang))
-    } else {
-      align(center, chapter-title(title, lang: lang))
-    }
-  }
+  align(center, chapter-title(title, lang: lang, prefix: prefix))
 
-  let chapter-index = context counter-chapter.display("1.")
   show heading: heading-size-style
   set heading(
     numbering: (..numbers) => heading-numbering(
       ..numbers,
-      prefix: chapter-index,
+      prefix: prefix,
       heading-depth: heading-depth,
     ),
   )
@@ -197,23 +201,28 @@
     pagebreak()
   }
 
+  show math.equation: equation-numbering-style.with(prefix: prefix)
+  show heading.where(level: 1): it => {
+    counter(math.equation).update(0)
+    it
+  }
+
+  show ref: ref-style.with(lang: lang, names: names).with(prefix: prefix)
+  show figure: figure-supplement-style
+  show figure.where(kind: table): set figure.caption(position: top)
+  show raw.where(block: true): code-block-style
+
   context if book-state.get() {
     set-inherited-levels(0)
   } else {
     set-inherited-levels(1)
   }
 
-  show math.equation: equation-numbering-style
-  show heading.where(level: 1): it => {
-    counter(math.equation).update(0)
-    it
+  if prefix == "appendix" {
+    set-theorion-numbering("A.1")
   }
-
-  show ref: ref-style.with(lang: lang, names: names)
-  show figure: figure-supplement-style
-  show figure.where(kind: table): set figure.caption(position: top)
-  show raw.where(block: true): code-block-style
-
   show: show-theorion
   body
 }
+
+#let appendix-style = chapter-style.with(prefix: "appendix")

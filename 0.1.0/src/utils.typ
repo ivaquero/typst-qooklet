@@ -31,7 +31,6 @@
   )
 }
 
-
 #let code(text, lang: "python", breakable: true, width: 100%) = block(
   fill: rgb("#F3F3F3"),
   stroke: rgb("#DBDBDB"),

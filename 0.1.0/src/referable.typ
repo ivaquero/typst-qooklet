@@ -5,7 +5,7 @@
   if prefix == "chapter" {
     counter-chapter.get().first()
   } else if prefix == "appendix" {
-    "abcde".at(counter-appendix.get().first() - 1)
+    "ABCDE".at(counter-appendix.get().first() - 1)
   }
 }
 
@@ -17,9 +17,8 @@
         block: true,
         numbering: if book-state.get() {
           let title-index = equation-prefix(prefix)
-          let eq-index = counter(math.equation).at(loc).first()
           n => {
-            "(" + str(title-index) + "." + str(eq-index + 1) + ")"
+            "(" + str(title-index) + "." + str(n) + ")"
           }
         } else {
           let h1 = counter(heading).get().first()
@@ -44,16 +43,16 @@
   if el == none { return x }
   let loc = el.location()
   if el.func() == math.equation {
+    let eq-index = counter(math.equation).at(loc).first()
     if book-state.get() {
       let title-index = equation-prefix(prefix)
-      let eq-index = counter(math.equation).at(loc).first()
       (
         names.blocks.at(lang).equation
           + link(
             loc,
             numbering(
               n => {
-                "(" + str(title-index) + "." + str(eq-index + 1) + ")"
+                "(" + str(title-index) + "." + str(n) + ")"
               },
               eq-index + 1,
             ),
@@ -61,9 +60,11 @@
       )
     } else {
       let h1 = counter(heading).at(loc).first()
-      let index = counter(math.equation).at(loc).first()
+      let num-style = if prefix == "chapter" { "(1.1)" } else if (
+        prefix == "appendix"
+      ) { "(a.1)" }
       (
-        names.blocks.at(lang).equation + link(loc, numbering("(1.1)", h1, index + 1))
+        names.blocks.at(lang).equation + link(loc, numbering(num-style, h1, eq-index + 1))
       )
     }
   } else { x }
@@ -93,15 +94,12 @@
   x
 }
 
-#let code-block-style(body) = {
-  codly(
-    languages: codly-languages,
-    display-name: false,
-    fill: rgb("#F2F3F4"),
-    zebra-fill: none,
-    inset: (x: .3em, y: .3em),
-    radius: .5em,
-  )
-  show: codly-init.with()
-  body
+#let bibx(bib, main: false) = {
+  counter("bibs").step()
+
+  context if main {
+    [#bib <bib-main>]
+  } else if query(<bib-main>) == () and counter("bibs").get().first() == 1 {
+    bib
+  }
 }
