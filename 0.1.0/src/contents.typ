@@ -12,8 +12,6 @@
 
   show: book-style.with(styles: styles)
   show link: set text(black)
-
-  set page(paper: styles.paper.booklet, margin: 10%)
   let lang = info.lang
 
   show heading.where(level: 1): it => {

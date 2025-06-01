@@ -12,12 +12,12 @@
 
 #let book-style(body, styles: default-styles) = {
   show: it => context {
-    set page(paper: styles.paper.booklet) if book-state.get()
+    set page(paper: styles.paper.booklet, margin: 10%) if book-state.get()
     it
   }
 
   show: it => context {
-    set page(paper: styles.paper.note) if not book-state.get()
+    set page(paper: styles.paper.note, margin: 10%) if not book-state.get()
     it
   }
   body

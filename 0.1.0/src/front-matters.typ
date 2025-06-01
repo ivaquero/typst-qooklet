@@ -4,7 +4,7 @@
 #let front-matter-style(body, styles: default-styles) = {
   show: book-style.with(styles: styles)
 
-  set page(styles.paper.booklet, margin: 10%, header: none, footer: none)
+  set page(header: none, footer: none)
   set par(justify: true)
 
   show heading.where(level: 1): it => {

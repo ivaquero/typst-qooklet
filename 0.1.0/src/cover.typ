@@ -4,8 +4,6 @@
 #let cover-style(body, styles: default-styles) = {
   book-state.update(true)
   show: book-style.with(styles: styles)
-
-  set page(margin: 10%)
   body
 }
 
