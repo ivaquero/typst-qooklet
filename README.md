@@ -68,7 +68,7 @@ Import `qooklet` from the `@preview` namespace.
 ### Note Mode
 
 ```typst
-#import "@preview/qooklet:0.5.0": *
+#import "@preview/qooklet:0.6.0": *
 #show: chapter-style.with(
   title: "Chapter Title",
   // the following are optional arguments

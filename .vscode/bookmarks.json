@@ -1,11 +1,11 @@
 {
 	"files": [
 		{
-			"path": "0.1.0/src/chapters.typ",
+			"path": "README.md",
 			"bookmarks": [
 				{
 					"line": 0,
-					"column": 22,
+					"column": 9,
 					"label": ""
 				}
 			]
