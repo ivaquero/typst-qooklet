@@ -1,4 +1,4 @@
-#import "dependencies.typ": codly, codly-init, codly-languages, default-names
+#import "dependencies.typ": *
 #import "common.typ": book-state, counter-appendix, counter-chapter
 
 #let equation-prefix(prefix) = {
