@@ -142,12 +142,12 @@ The booklet mode will be activated after calling `cover()`
 // appendix
 #part-page[Appendix]
 
-#show: appendix-stylechapter-style.with(
+#show: appendix-style.with(
   title: "Appendix-title 1",
   info: info,
 )
 
-#show: appendix-stylechapter-style.with(
+#show: appendix-style.with(
   title: "Appendix-title 2",
   info: info,
 )
@@ -156,7 +156,11 @@ The booklet mode will be activated after calling `cover()`
 
 ![example-book](https://raw.githubusercontent.com/ivaquero/typst-qooklet/refs/heads/main/example-book.png)
 
-If you are not neither English speaker nor Chinese speaker, you needs to create another toml for section names, assume you are a French speaker, your file should be like
+## Tweaking the Params
+
+### Names
+
+Qooklet's section names support English and Chinese by default. If you are not neither English speaker nor Chinese speaker, assume you are a French speaker, you can create a toml like
 
 ```toml
 [sections.fr]
@@ -173,6 +177,60 @@ If you are not neither English speaker nor Chinese speaker, you needs to create 
     rule = "Règle"
     law = "Loi"
 ```
+
+after reading this file by `toml()`, assign its value to the argument `names` in style functions, such as `chapter-style()`, `appendix-style()`.
+
+### Styles
+
+If you are not satisfied with the default styles such as font-family, font-size, you can create a toml like
+
+```toml
+[paper]
+    note = "a4"
+    booklet = "iso-b5"
+
+[fonts.en]
+    chapter = "Palatino"
+    chapter-index = "Palatino"
+    cover = "Palatino"
+    author = "Times New Roman"
+    date = "Times New Roman"
+    epigraph = "Georgia"
+    preface = "Georgia"
+    contents = "Georgia"
+    part = "Georgia"
+    context = "Georgia"
+    math = "Times New Roman"
+
+[sizes.en]
+    chapter = 24
+    chapter-index = 50
+    cover = 36
+    author = 24
+    date = 18
+    epigraph = 16
+    preface = 22
+    contents = 22
+    part = 36
+    heading-1 = 16
+    heading-2 = 14
+    heading-3 = 12
+    heading-4 = 10.5
+    context = 10.5
+    header = 8
+    footer = 8
+
+[spaces.en]
+    par-indent = 2
+    par-leading = 1
+    par-spacing = 1
+    list-indent = 1.2
+    block-above = 1
+    block-below = 1
+    contents-indent = 1.2
+```
+
+after reading this file by `toml()`, assign its value to the argument in style functions, such as `chapter-style()`, `appendix-style()`.
 
 Don't forget to change the key `lang` in your info toml metioned above!
 

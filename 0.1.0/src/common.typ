@@ -29,7 +29,6 @@
   body
 }
 
-
 #let common-style(
   body,
   info: default-info,
