@@ -103,7 +103,7 @@ The toml file should look like this
 
 ### Booklet Mode
 
-The booklet mode will be mode will be activated after calling `cover()`
+The booklet mode will be activated after calling `cover()`
 
 ```typst
 #import "@preview/qooklet:0.5.0": *
@@ -176,9 +176,9 @@ If you are not neither English speaker nor Chinese speaker, you needs to create 
 
 Don't forget to change the key `lang` in your info toml metioned above!
 
-For more details, see [examples.typ](https://github.com/ivaquero/typst-qooklet/blob/main/examples/example.typ) and [examples-book.typ](https://github.com/ivaquero/typst-qooklet/blob/main/examples/example-book.typ).
+For more details, see [examples.typ](https://github.com/ivaquero/typst-qooklet/blob/main/examples/example.pdf) and [examples-book.typ](https://github.com/ivaquero/typst-qooklet/blob/main/examples/example-book.pdf).
 
-## Clone Official Repository
+## Clone the Repository
 
 Clone the [qooklet](https://github.com/ivaquero/typst-qooklet) repository to your `@local` workspace:
 

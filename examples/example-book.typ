@@ -18,40 +18,59 @@
 
 #contents(depth: 2)
 
-#part-page()[Specifications]
+#part-page[Specifications]
 
 #show: chapter-style.with(title: "Features", info: example)
 
-In this chapter, I will show you all the features of this template.
+In this chapter, I will show you the features of this template.
 
-= General Styles
+= Builtin Styles
 
-== Cover Style
+All of these functions are:
 
-== Front Matter Style
+- Styles:
+  - `chapter-style(title: title, info: info)[body]`: Style for body pages.
+  - `appendix-style(title: title, info: info)[body]`: Style for appendix pages.
+  - `front-matter-style(body)`: Style for front matter pages.
+- Pages:
+  - `cover(info, date: datetime.today())`: Add a cover page to the document.
+  - `epigraph[body]`: Add an epigraph to the document.
+  - `preface[body]`: Add a preface to the document.
+  - `part-page[body]`: Add a part page to the document.
+  - `contents(depth: depth)`: Add a table of contents to the document.
 
-=== Figures
+= Two Modes
 
-When I'm adding a figure, the caption will be shown in the margin.
+The default mode is note mode, when `cover()` is called the booklet mode will be activated.
 
-#figure(
-  rect(width: 100%, height: 1cm, fill: gradient.linear(..color.map.rainbow)),
-  caption: [A rainbow],
-)
+= Tweakable Config
 
-=== References Style
+The `info` argument in `chapter-style()` and `appendix-style()` is argument that let you customize the information of your booklet using a toml file (if you leave it alone, the following info will be empty).
 
-When I'm referencing something great@maedje2022typst, a detailed reference will be shown in the margin.
+You can read you info file by the following sentence
 
-= Customizable Styles
+```typst
+#let info = toml("your path").key-you-like
+```
+
+The toml file should look like this
+
+```toml
+[key-you-like]
+    title = "Your Booklet Name"
+    author = "Your Name"
+    footer = "Some Info You Want to Show"
+    header = "Some Info You Want to Show"
+    lang = "en" # or "zh"
+```
+
+= Theorems
+
+The theorems enviroment is implemented by #link("https://github.com/OrangeX4/typst-theorion")[theorion].
 
 #show: chapter-style.with(title: "Usage of the Template", info: example)
 
-// #chapter-img(image("0.1.0/assets/cloud.jpg"))
-
 The template is designed to be easy to use. You can use it to create a booklet or a note with a beautiful layout.
-
-In this chapter, I will show you how to initialize the template and use a variety of utility functions provided.
 
 = Importing the Template
 
@@ -72,23 +91,6 @@ or clone the repository to your `@local` workspace
 ```typ
 #import "@local/qooklet:0.1.0": *
 ```
-
-The default mode is note mode, when `cover()` is called the booklet mode will be activated.
-
-In addition to the four functions returned by `template`, functions independent of booklet mode are also imported. All of these functions are:
-
-- Styles:
-  - `front-matter-style(body)`: Style for front matter pages.
-  - `appendix-style(body)`: Style for appendix pages.
-  - `chapter-style(body)`: Style for body pages.
-- Pages:
-  - `cover(info, date: datetime.today())`: Add a cover page to the document.
-  - `epigraph(body)`: Add an epigraph to the document.
-  - `preface(body)`: Add a preface to the document.
-  - `contents`: Add a table of contents to the document.
-  - `part-page(body)`: Add a part page to the document.
-- Utils:
-  - `chapter-img(body, img, label: none)`: Add a heading of level 1 with a banner image to the document.
 
 = Suggested Document Structure
 
@@ -144,34 +146,9 @@ Overall, your document should be structured like this:
 ...
 ```
 
-For the body of the document, the template provides you with at least three hierarchical levels of structure:
-- `part-page`: The `part-page` will create a single page with a title. You can use it to create a new chapter or a new part in your document.
-- `= Heading` or `chapter-img`: The level 1 heading will create a chapter starting from a new page. Specifically, the `chapter-img` will create a heading with an image banner.
-- `= Section`: The level 2 heading will create a section.
+#show: chapter-style.with(title: "Some Examples", info: example)
 
-For the appendix, it's almost the same as the body. But their heading numbering is `"A.1"`.
-
-= Usage of Some Functions
-
-In this chapter, I will show you how to use some functions, mainly tool functions, as well as some page functions.
-
-== Heading Image
-
-The `chapter-img` function will create a level 1 heading with an image banner.
-
-Still buggy, don't use it at the moment.
-
-#part-page()[Dependencies]
-
-#show: chapter-style.with(title: "Enviroments", info: example)
-
-= Theorems
-
-The theorems enviroment is implemented by #link("https://github.com/OrangeX4/typst-theorion")[theorion].
-
-= An Example
-
-== Bellman Equation
+= Bellman Equation
 
 #definition(title: "Bellman Eqation")[
 
@@ -187,7 +164,7 @@ The theorems enviroment is implemented by #link("https://github.com/OrangeX4/typ
   $ <bellman>
 ]
 
-== Bellman Optimal Eqation
+= Bellman Optimal Eqation
 
 By Eq. @bellman,...
 
@@ -196,7 +173,7 @@ $
   &= max_(π(s) ∈ ∏(s)) ∑_(a ∈ 𝒜) π(a|s) q(s, a), quad &∀s ∈ 𝒮
 $ <boe>
 
-== Case: Shortest Path of Islands
+= Case: Shortest Path of Islands
 
 ```typst
 #let csv1 = csv("islands.csv")
@@ -216,12 +193,8 @@ $ <boe>
   kind: table,
 )
 
-#part-page()[Appendix]
+#part-page[Appendix]
 
 #show: appendix-style.with(title: "Bibliography")
 
 #bibliography("bib.bib", title: none)
-
-#show: appendix-style.with(title: "Notes")
-
-I hate writing notes.

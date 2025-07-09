@@ -41,55 +41,40 @@
     ) { counter-appendix.display("A") }
 
     let bottom-pad = 10%
-    block(
-      height: 50%,
-      grid(
-        columns: (10fr, 1fr, 2fr),
-        rows: (2fr, 12fr),
-        align: (right + bottom, center, left + bottom),
-        place(
-          right + bottom,
-          dx: -1%,
-          pad(
-            figure(
-              the-title,
-              kind: prefix,
-              supplement: none,
-              numbering: _ => none,
-              caption: title,
-            ),
-            bottom: bottom-pad,
-          ),
+    block(height: 50%, grid(
+      columns: (10fr, 1fr, 2fr),
+      rows: (2fr, 12fr),
+      align: (right + bottom, center, left + bottom),
+      place(right + bottom, dx: -1%, pad(
+        figure(
+          the-title,
+          kind: prefix,
+          supplement: none,
+          numbering: _ => none,
+          caption: title,
         ),
-        line(angle: 90deg, length: 100%),
-        pad(
-          text(
-            50pt,
-            prefix-index,
-            font: styles.fonts.at(lang).title,
-            weight: "bold",
-          ),
-        ),
-      ),
-    )
+        bottom: bottom-pad,
+      )),
+      line(angle: 90deg, length: 100%),
+      pad(text(
+        50pt,
+        prefix-index,
+        font: styles.fonts.at(lang).title,
+        weight: "bold",
+      )),
+    ))
   }
 }
 
 #let chapter-img(img, title: "") = {
-  block(
-    place(
-      right + bottom,
-      dx: 1%,
-      figure(
-        img,
-        placement: top,
-        kind: "chapimg",
-        supplement: none,
-        numbering: _ => none,
-        caption: title,
-      ),
-    ),
-  )
+  block(place(right + bottom, dx: 1%, figure(
+    img,
+    placement: top,
+    kind: "chapimg",
+    supplement: none,
+    numbering: _ => none,
+    caption: title,
+  )))
 }
 
 #let heading-size-style(x) = {
@@ -118,19 +103,6 @@
   } else {
     h(-0.3em)
   }
-}
-
-#let code-block-style(body) = {
-  codly(
-    languages: codly-languages,
-    display-name: false,
-    fill: rgb("#F2F3F4"),
-    zebra-fill: none,
-    inset: (x: .3em, y: .3em),
-    radius: .5em,
-  )
-  show: codly-init.with()
-  body
 }
 
 #let chapter-style(
@@ -183,13 +155,11 @@
   align(center, chapter-title(title, lang: lang, prefix: prefix))
 
   show heading: heading-size-style
-  set heading(
-    numbering: (..numbers) => heading-numbering(
-      ..numbers,
-      prefix: prefix,
-      heading-depth: heading-depth,
-    ),
-  )
+  set heading(numbering: (..numbers) => heading-numbering(
+    ..numbers,
+    prefix: prefix,
+    heading-depth: heading-depth,
+  ))
 
   show pagebreak.where(weak: true): it => {
     counter(heading).update(0)

@@ -1,4 +1,4 @@
-#import "dependencies.typ": codly, codly-init, codly-languages, default-names
+#import "dependencies.typ": *
 #import "common.typ": book-state, counter-appendix, counter-chapter
 
 #let equation-prefix(prefix) = {
@@ -48,15 +48,12 @@
       let title-index = equation-prefix(prefix)
       (
         names.blocks.at(lang).equation
-          + link(
-            loc,
-            numbering(
-              n => {
-                "(" + str(title-index) + "." + str(n) + ")"
-              },
-              eq-index + 1,
-            ),
-          )
+          + link(loc, numbering(
+            n => {
+              "(" + str(title-index) + "." + str(n) + ")"
+            },
+            eq-index + 1,
+          ))
       )
     } else {
       let h1 = counter(heading).at(loc).first()
@@ -92,6 +89,19 @@
     #it.body
   ]
   x
+}
+
+#let code-block-style(body) = {
+  codly(
+    languages: codly-languages,
+    display-name: false,
+    fill: rgb("#F2F3F4"),
+    zebra-fill: none,
+    inset: (x: .3em, y: .3em),
+    radius: .5em,
+  )
+  show: codly-init.with()
+  body
 }
 
 #let bibx(bib, main: false) = {
