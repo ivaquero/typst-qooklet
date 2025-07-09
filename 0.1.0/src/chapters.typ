@@ -23,9 +23,9 @@
   styles: default-styles,
 ) = {
   let the-title = text(
-    24pt,
     title,
-    font: styles.fonts.at(lang).title,
+    size: styles.sizes.at(lang).chapter * 1pt,
+    font: styles.fonts.at(lang).chapter,
     style: "italic",
     weight: "bold",
   )
@@ -36,7 +36,7 @@
   } else {
     pagebreak(weak: true, to: "odd")
     show figure.caption: none
-    let prefix-index = context if (prefix == "chapter") { counter-chapter.display("1") } else if (
+    let chapter-idx = context if (prefix == "chapter") { counter-chapter.display("1") } else if (
       prefix == "appendix"
     ) { counter-appendix.display("A") }
 
@@ -57,9 +57,9 @@
       )),
       line(angle: 90deg, length: 100%),
       pad(text(
-        50pt,
-        prefix-index,
-        font: styles.fonts.at(lang).title,
+        chapter-idx,
+        size: styles.sizes.at(lang).chapter-index * 1pt,
+        font: styles.fonts.at(lang).chapter-index,
         weight: "bold",
       )),
     ))
@@ -77,16 +77,34 @@
   )))
 }
 
-#let heading-size-style(x) = {
-  show heading.where(level: 1): set text(size: 16pt)
-  show heading.where(level: 2): set text(size: 14pt)
-  show heading.where(level: 3): set text(size: 12pt)
-  show heading.where(level: 4): set text(size: 10.5pt)
+#let heading-size-style(
+  x,
+  info: default-info,
+  styles: default-styles,
+) = {
+  let lang = info.lang
+
+  show heading.where(level: 1): set text(
+    size: styles.sizes.at(lang).heading-1 * 1pt,
+  )
+  show heading.where(level: 2): set text(
+    size: styles.sizes.at(lang).heading-2 * 1pt,
+  )
+  show heading.where(level: 3): set text(
+    size: styles.sizes.at(lang).heading-3 * 1pt,
+  )
+  show heading.where(level: 4): set text(
+    size: styles.sizes.at(lang).heading-4 * 1pt,
+  )
   x
   v(1em, weak: true)
 }
 
-#let heading-numbering(..numbers, prefix: "chapter", heading-depth: 3) = {
+#let heading-numbering(
+  ..numbers,
+  prefix: "chapter",
+  heading-depth: 3,
+) = {
   let the-prefix = if book-state.get() {
     if (prefix == "chapter") { counter-chapter.display("1.") } else if (
       prefix == "appendix"
@@ -101,7 +119,7 @@
   } else if (level == 3) and (heading-depth2 == 3) {
     the-prefix + numbering("1.", ..numbers)
   } else {
-    h(-0.3em)
+    h(-0.33em)
   }
 }
 
@@ -120,7 +138,7 @@
     message: "depth can only be either 1, 2 or 3",
   )
 
-  show: common-style
+  show: common-style.with(info: info)
   show: book-style.with(styles: styles)
 
   let header = info.header
@@ -129,24 +147,28 @@
 
   set par(
     first-line-indent: (
-      amount: if lang == "zh" { 2em } else { 0em },
+      amount: styles.spaces.at(lang).par-indent * 1em,
       all: if lang == "zh" { true } else { false },
     ),
     justify: true,
-    leading: 1em,
-    spacing: 1em,
+    leading: styles.spaces.at(lang).par-leading * 1em,
+    spacing: styles.spaces.at(lang).par-spacing * 1em,
   )
 
-  set text(font: styles.fonts.at(lang).context, size: 10.5pt, lang: lang)
+  set text(
+    size: styles.sizes.at(lang).context * 1pt,
+    font: styles.fonts.at(lang).context,
+    lang: lang,
+  )
 
   set page(
     header: context {
-      set text(size: 8pt)
+      set text(size: styles.sizes.at(lang).header * 1pt)
       align-odd-even(header, emph(hydra(1)), hide: true)
       line(length: 100%)
     },
     footer: context {
-      set text(size: 8pt)
+      set text(size: styles.sizes.at(lang).footer * 1pt)
       let page_num = here().page()
       align-odd-even(footer, page_num)
     },
@@ -154,7 +176,7 @@
 
   align(center, chapter-title(title, lang: lang, prefix: prefix))
 
-  show heading: heading-size-style
+  show heading: heading-size-style.with(info: info, styles: styles)
   set heading(numbering: (..numbers) => heading-numbering(
     ..numbers,
     prefix: prefix,

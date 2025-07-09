@@ -22,7 +22,7 @@
   styles: default-styles,
   names: default-names,
 ) = {
-  show: common-style
+  show: common-style.with(info: info)
   show: front-matter-style
 
   let lang = info.lang
@@ -30,16 +30,10 @@
 
   let dir = if lang == "zh" { center } else { left }
 
-  align(
-    dir,
-    heading(
-      level: 1,
-      text(
-        names.sections.at(lang).preface,
-        font: styles.fonts.at(lang).preface,
-      ),
-    ),
-  )
+  align(dir, heading(level: 1, text(
+    names.sections.at(lang).preface,
+    font: styles.fonts.at(lang).preface,
+  )))
 
   set text(font: styles.fonts.at(lang).context, size: 10.5pt, lang: lang)
 
@@ -57,15 +51,12 @@
 
   show figure.caption: none
 
-  align(
-    center + horizon,
-    figure(
-      text(36pt, strong(title), font: styles.fonts.at(lang).part),
-      kind: "part",
-      supplement: none,
-      numbering: _ => none,
-      caption: title,
-    ),
-  )
+  align(center + horizon, figure(
+    text(36pt, strong(title), font: styles.fonts.at(lang).part),
+    kind: "part",
+    supplement: none,
+    numbering: _ => none,
+    caption: title,
+  ))
   pagebreak(to: "odd")
 }

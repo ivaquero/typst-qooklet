@@ -18,21 +18,34 @@
   let lang = info.lang
   let author = info.author
 
-  align(
-    center + horizon,
-    [
-      #text(size: 36pt, weight: "bold", font: styles.fonts.at(lang).title, title)
-      #v(1em)
-      #text(24pt, font: styles.fonts.at(lang).author, author)
-      #v(1em)
-      #text(18pt, date.display())
-    ],
-  )
+  align(center + horizon, [
+    #text(
+      size: styles.sizes.at(lang).cover * 1pt,
+      font: styles.fonts.at(lang).cover,
+      weight: "bold",
+      title,
+    )
+    #v(1em)
+    #text(
+      size: styles.sizes.at(lang).author * 1pt,
+      font: styles.fonts.at(lang).author,
+      author,
+    )
+    #v(1em)
+    #text(size: styles.sizes.at(lang).date * 1pt, font: styles.fonts.at(lang).date, date.display())
+  ])
 }
 
 #let epigraph(
+  info,
   body,
 ) = {
   show: cover-style
-  align(center + horizon, text(16pt, body))
+
+  let lang = info.lang
+  align(center + horizon, text(
+    size: styles.sizes.at(lang).epigraph * 1pt,
+    font: styles.fonts.at(lang).epigraph,
+    body,
+  ))
 }

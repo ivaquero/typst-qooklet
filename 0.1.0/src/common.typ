@@ -1,4 +1,4 @@
-#import "dependencies.typ": default-names, default-styles
+#import "dependencies.typ": default-info, default-names, default-styles
 
 #let book-state = state("book-state", false)
 
@@ -12,22 +12,38 @@
 
 #let book-style(body, styles: default-styles) = {
   show: it => context {
-    set page(paper: styles.paper.booklet, margin: 10%) if book-state.get()
+    set page(
+      paper: styles.paper.booklet,
+      margin: 10%,
+    ) if book-state.get()
     it
   }
 
   show: it => context {
-    set page(paper: styles.paper.note, margin: 10%) if not book-state.get()
+    set page(
+      paper: styles.paper.note,
+      margin: 10%,
+    ) if not book-state.get()
     it
   }
   body
 }
 
-#let indent-base = 1.2em
-#let common-style(body, list-indent: indent-base) = {
-  set list(indent: list-indent)
-  set enum(indent: list-indent)
-  set block(above: 1em, below: 1em, radius: 20%)
+
+#let common-style(
+  body,
+  info: default-info,
+  styles: default-styles,
+) = {
+  let lang = info.lang
+
+  set list(indent: styles.spaces.at(lang).list-indent * 1em)
+  set enum(indent: styles.spaces.at(lang).list-indent * 1em)
+  set block(
+    above: styles.spaces.at(lang).block-above * 1em,
+    below: styles.spaces.at(lang).block-below * 1em,
+    radius: 20%,
+  )
 
   show link: set text(blue.lighten(10%))
   show link: underline

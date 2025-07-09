@@ -20,11 +20,13 @@
     v(.5em)
   }
 
-  set outline(
-    title: {
-      heading(outlined: true, level: 1, names.sections.at(lang).content)
-    },
-  )
+  set outline(title: {
+    heading(
+      outlined: true,
+      level: 1,
+      names.sections.at(lang).content,
+    )
+  })
 
   show outline.entry: x => {
     let fill = box(width: 1fr, x.fill)
@@ -54,7 +56,11 @@
         loc,
         (
           if prefix.has("children") {
-            h(1.2em) + str(chapter-index) + "." + prefix.children.at(1) + h(.5em)
+            h(styles.fonts.at(lang).contents-indent * 1em)
+            +str(chapter-index)
+            +"."
+            +prefix.children.at(1)
+            +h(.5em)
           } else if prefix.has("text") {
             prefix + h(.5em)
           }
@@ -77,5 +83,5 @@
   )
   pagebreak(to: "odd")
 
-  show outline: it => if query(it.target) == () { }
+  show outline: it => if query(it.target) == () {}
 }
