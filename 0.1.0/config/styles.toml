@@ -11,8 +11,8 @@
     epigraph = "Georgia"
     preface = "Georgia"
     contents = "Georgia"
-    context = "Georgia"
     part = "Georgia"
+    context = "Georgia"
     math = "Times New Roman"
 
 [fonts.zh]
@@ -24,8 +24,8 @@
     epigraph = "Songti SC"
     preface = "Songti SC"
     contents = "Songti SC"
-    context = "Songti SC"
     part = "Songti SC"
+    context = "Songti SC"
     math = "Kaiti SC"
 
 [sizes.en]
@@ -35,6 +35,9 @@
     author = 24
     date = 18
     epigraph = 16
+    preface = 22
+    contents = 22
+    part = 36
     heading-1 = 16
     heading-2 = 14
     heading-3 = 12
@@ -49,6 +52,10 @@
     cover = 36
     author = 24
     date = 18
+    epigraph = 16
+    preface = 22
+    contents = 22
+    part = 36
     heading-1 = 16
     heading-2 = 14
     heading-3 = 12
@@ -70,6 +77,7 @@
     par-indent = 2
     par-leading = 1
     par-spacing = 1
-    list-indent = 2
+    list-indent = 1.2
     block-above = 1
     block-below = 1
+    contents-indent = 1.2

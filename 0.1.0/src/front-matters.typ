@@ -6,14 +6,7 @@
 
   set page(header: none, footer: none)
   set par(justify: true)
-
-  show heading.where(level: 1): it => {
-    v(0.1em)
-    set text(22pt)
-    it
-    v(0.5em)
-  }
-  text(body, size: 14pt)
+  body
 }
 
 #let preface(
@@ -25,17 +18,27 @@
   show: common-style.with(info: info)
   show: front-matter-style
 
-  let lang = info.lang
   let author = info.author
-
+  let lang = info.lang
   let dir = if lang == "zh" { center } else { left }
 
   align(dir, heading(level: 1, text(
     names.sections.at(lang).preface,
+    size: styles.sizes.at(lang).preface * 1pt,
     font: styles.fonts.at(lang).preface,
   )))
 
-  set text(font: styles.fonts.at(lang).context, size: 10.5pt, lang: lang)
+  show heading.where(level: 1): it => {
+    v(0.1em)
+    it
+    v(0.5em)
+  }
+
+  set text(
+    size: styles.sizes.at(lang).context * 1pt,
+    font: styles.fonts.at(lang).context,
+    lang: lang,
+  )
 
   v(2em)
   body
@@ -52,7 +55,7 @@
   show figure.caption: none
 
   align(center + horizon, figure(
-    text(36pt, strong(title), font: styles.fonts.at(lang).part),
+    text(size: styles.sizes.at(lang).part, font: styles.fonts.at(lang).part, strong(title)),
     kind: "part",
     supplement: none,
     numbering: _ => none,
