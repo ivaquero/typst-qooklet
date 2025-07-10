@@ -68,7 +68,7 @@ Import `qooklet` from the `@preview` namespace.
 ### Note Mode
 
 ```typst
-#import "@preview/qooklet:0.6.0": *
+#import "@preview/qooklet:0.6.1": *
 #show: chapter-style.with(
   title: "Chapter Title",
   // the following are optional arguments
@@ -106,7 +106,7 @@ The toml file should look like this
 The booklet mode will be activated after calling `cover()`
 
 ```typst
-#import "@preview/qooklet:0.5.0": *
+#import "@preview/qooklet:0.6.1": *
 
 #let info = toml(your-info-file-path).key-you-like
 // for example: #let info = toml("config/info.toml").global
@@ -117,11 +117,11 @@ The booklet mode will be activated after calling `cover()`
   // date: datetime.today(),
 )
 
-#epigraph[
+#epigraph(info)[
   // Add an epigraph to the document.
 ]
 
-#preface[
+#preface(info)[
   // Add a preface to the document.
 ]
 
@@ -140,7 +140,7 @@ The booklet mode will be activated after calling `cover()`
 ...
 
 // appendix
-#part-page[Appendix]
+#part-page(info)[Appendix]
 
 #show: appendix-style.with(
   title: "Appendix-title 1",
