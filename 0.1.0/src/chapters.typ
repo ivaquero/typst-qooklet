@@ -36,7 +36,9 @@
   } else {
     pagebreak(weak: true, to: "odd")
     show figure.caption: none
-    let chapter-idx = context if (prefix == "chapter") { counter-chapter.display("1") } else if (
+    let chapter-idx = context if (prefix == "chapter") {
+      counter-chapter.display("1")
+    } else if (
       prefix == "appendix"
     ) { counter-appendix.display("A") }
 

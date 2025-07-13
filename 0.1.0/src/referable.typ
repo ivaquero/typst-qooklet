@@ -22,7 +22,9 @@
           }
         } else {
           let h1 = counter(heading).get().first()
-          let num-style = if prefix == "chapter" { "(1.1)" } else if (
+          let num-style = if prefix == "chapter" {
+            "(1.1)"
+          } else if (
             prefix == "appendix"
           ) { "(a.1)" }
           n => {
@@ -57,7 +59,9 @@
       )
     } else {
       let h1 = counter(heading).at(loc).first()
-      let num-style = if prefix == "chapter" { "(1.1)" } else if (
+      let num-style = if prefix == "chapter" {
+        "(1.1)"
+      } else if (
         prefix == "appendix"
       ) { "(a.1)" }
       (

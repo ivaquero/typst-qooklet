@@ -83,7 +83,11 @@
 ) = {
   let lang = info.lang
 
-  show: contents-style.with(lang: lang, depth: depth, styles: styles)
+  show: contents-style.with(
+    lang: lang,
+    depth: depth,
+    styles: styles,
+  )
   outline(
     target: selector(heading).or(fig-part).or(fig-chapter).or(fig-appendix),
     depth: depth,
