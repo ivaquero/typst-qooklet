@@ -230,7 +230,7 @@ If you are not satisfied with the default styles such as font-family, font-size,
     math = "Times New Roman"
 ```
 
-after reading this file by `toml()`, assign its value to the argument in style functions, such as `chapter-style()`, `appendix-style()`.
+after reading this file by `toml()`, assign its value to the argument `styles` in style functions, such as `chapter-style()`, `appendix-style()`.
 
 Don't forget to change the key `lang` in your info toml metioned above.
 
