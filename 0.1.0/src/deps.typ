@@ -4,7 +4,6 @@
 #import "@preview/codly-languages:0.1.8": codly-languages
 // environments
 #import "@preview/theorion:0.4.0": *
-#import "@preview/physica:0.9.5": *
 
 #let default-names = toml("../config/names.toml")
 #let default-styles = toml("../config/styles.toml")

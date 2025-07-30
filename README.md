@@ -261,7 +261,6 @@ Thanks @ParaN3xus for his [haobook](https://github.com/ParaN3xus/haobook) which 
 Also thanks the creators of the following packages
 
 - @tingerrr: [hydra](https://github.com/tingerrr/hydra)
-- @Leedehai: [physica](https://github.com/Leedehai/typst-physics)
 - @Dherse: [codly](https://github.com/Dherse/codly)
 - @swaits: [codly-languages](https://github.com/swaits/typst-collection)
 - @OrangeX4: [theorion](https://github.com/OrangeX4/typst-theorion)
