@@ -1,4 +1,4 @@
-#import "dependencies.typ": *
+#import "deps.typ": *
 #import "common.typ": *
 #import "referable.typ": *
 

@@ -1,4 +1,4 @@
-#import "dependencies.typ": *
+#import "deps.typ": *
 #import "common.typ": book-state, counter-appendix, counter-chapter
 
 #let equation-prefix(prefix) = {

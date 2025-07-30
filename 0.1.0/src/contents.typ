@@ -1,4 +1,4 @@
-#import "dependencies.typ": default-info, default-names, default-styles
+#import "deps.typ": default-info, default-names, default-styles
 #import "common.typ": *
 
 #let contents-style(
