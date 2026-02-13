@@ -193,6 +193,7 @@
     pagebreak()
   }
 
+  set math.cases(gap: .85em)
   show math.equation: equation-numbering-style.with(prefix: prefix)
   show heading.where(level: 1): it => {
     counter(math.equation).update(0)
