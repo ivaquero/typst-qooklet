@@ -97,7 +97,6 @@
 
 #let code-block-style(body) = {
   codly(
-    languages: codly-languages,
     display-name: false,
     fill: rgb("#F2F3F4"),
     zebra-fill: none,
